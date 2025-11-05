@@ -35,12 +35,12 @@ public class Usuario {
         email = _email;
     }
     
-    public void setContrasena(String _contrasena) {
-        rol = _contrasena;
-    }
-    
     public String getContrasena() {
         return contrasena;
+    }
+    
+    public void setContrasena(String _contrasena) {
+        contrasena = _contrasena;
     }
     
     public String getRol() {

@@ -6,19 +6,12 @@ import com.zaxxer.hikari.HikariDataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-/**
- *
- * @author abrah
- */
 public class ConnectionPool {
 private static HikariConfig config = new HikariConfig();
     
-    // 2. El DataSource (fuente de datos) que manejará el pool
     private static HikariDataSource ds;
 
-    // 3. Bloque estático: Se ejecuta UNA SOLA VEZ cuando la clase es cargada
     static {
-        // Usamos los datos que me diste
         String host = "localhost";
         String port = "3306";
         String database = "ASIDB";
@@ -41,7 +34,7 @@ private static HikariConfig config = new HikariConfig();
         config.addDataSourceProperty("prepStmtCacheSize", "250");
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
 
-        // 4. Se crea el DataSource con la configuración
+        // Se crea el DataSource con la configuración
         ds = new HikariDataSource(config);
         System.out.println("¡Pool de conexiones HikariCP inicializado!");
     }
