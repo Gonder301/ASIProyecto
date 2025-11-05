@@ -50,8 +50,7 @@ public class Login extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        msgContraIncorrecta = new javax.swing.JLabel();
-        debugLabel = new javax.swing.JLabel();
+        msgError = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -165,8 +164,6 @@ public class Login extends javax.swing.JFrame {
 
         jLabel8.setText("------------------------- O continúa con -------------------------");
 
-        debugLabel.setText("---");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -192,9 +189,8 @@ public class Login extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(msgContraIncorrecta)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(debugLabel))))))
+                                    .addComponent(msgError)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(65, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -204,9 +200,7 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(debugLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
                     .addComponent(jButton4))
@@ -215,7 +209,7 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(msgContraIncorrecta)
+                .addComponent(msgError)
                 .addGap(10, 10, 10))
         );
 
@@ -262,12 +256,15 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //FALTA MOSTRAS MENSAJE DE CORREO NO REGISTRADO Y CAMPOS VACIOS
+        //FALTA MOSTRAS MENSAJE DE CAMPOS VACIOS
         if (!correoTextField.getText().trim().isEmpty()) {
             if (!contraTextField.getText().trim().isEmpty()) {
                 UsuarioDAO udao = new UsuarioDAO();
                 Usuario u = udao.obtenerUsuario(correoTextField.getText());
-                debugLabel.setText(u.getContrasena());
+                if (u == null) {
+                    msgError.setText("Correo no registrado");
+                    return;
+                }
                 if (contraTextField.getText().equals(u.getContrasena())) {
                     //FALTA IMPLEMETAR PASAR LOS DATOS DE u AL NUEVO JFRAME
                     VistaOportunidad vistaOportunidad = new VistaOportunidad();
@@ -275,7 +272,7 @@ public class Login extends javax.swing.JFrame {
                     this.dispose();
                 }
                 else {
-                    msgContraIncorrecta.setText("Contraseña incorrecta");
+                    msgError.setText("Contraseña incorrecta");
                 }
             }
         }
@@ -309,7 +306,6 @@ public class Login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField contraTextField;
     private javax.swing.JTextField correoTextField;
-    private javax.swing.JLabel debugLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -322,6 +318,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel msgContraIncorrecta;
+    private javax.swing.JLabel msgError;
     // End of variables declaration//GEN-END:variables
 }

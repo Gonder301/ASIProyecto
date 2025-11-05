@@ -14,8 +14,8 @@ public class ASIProyecto {
         }
 
         javax.swing.SwingUtilities.invokeLater(() -> {
-            Login loginFrame = new Login();
-            loginFrame.setVisible(true);
+            Index indexFrame = new Index();
+            indexFrame.setVisible(true);
         });
         
     }
