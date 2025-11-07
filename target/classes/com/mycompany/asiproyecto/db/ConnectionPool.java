@@ -1,4 +1,4 @@
-package com.mycompany.asiproyecto;
+package com.mycompany.asiproyecto.db;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

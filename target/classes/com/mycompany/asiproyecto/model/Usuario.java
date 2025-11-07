@@ -1,5 +1,5 @@
 
-package com.mycompany.asiproyecto;
+package com.mycompany.asiproyecto.model;
 
 public class Usuario {
     private int id;

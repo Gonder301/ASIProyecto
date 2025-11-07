@@ -1,5 +1,7 @@
-package com.mycompany.asiproyecto;
+package com.mycompany.asiproyecto.dao;
 
+import com.mycompany.asiproyecto.db.ConnectionPool;
+import com.mycompany.asiproyecto.model.Convocatoria;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -1,4 +1,6 @@
-package com.mycompany.asiproyecto;
+package com.mycompany.asiproyecto.view;
+
+import com.mycompany.asiproyecto.view.Index;
 
 public class NotFound extends javax.swing.JFrame {
     

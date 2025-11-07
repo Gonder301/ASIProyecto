@@ -1,38 +1,27 @@
-package com.mycompany.asiproyecto;
+package com.mycompany.asiproyecto.view;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.Color;
 
 public class Index extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Index.class.getName());
 
+    //Variables
+    Color iniciarSesionButtonColorMouseEntered = new Color(255,204, 0);
+    Color iniciarSesionButtonColorMouseExited = new Color(242,242, 242);
+    
     /**
      * Creates new form Index
      */
     public Index() {
         initComponents();
-        
-        ImageIcon icon = new ImageIcon(getClass().getResource("icon.png"));
+        ImageIcon icon = new ImageIcon(getClass().getResource("../assets/icon.png"));
         JLabel iconLabel = new JLabel(icon);
         iconLabel.setBounds(0, 0, 168, 59);
         getContentPane().add(iconLabel);
-        revalidate();
-        repaint();
-        //Se implementa interfaz MouseListener en iniciarSesionLabel
-        //PQ NO SOLO UN BOTON???xd
-        iniciarSesionLabel.addMouseListener(new MouseAdapter()
-        {
-            @Override
-            public void mouseClicked(MouseEvent e) 
-            {
-                Login loginFrame = new Login();
-                loginFrame.setVisible(true);
-                dispose();
-            }
-        });
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -44,29 +33,30 @@ public class Index extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        iniciarSesionLabel = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
+        iniciarSesionButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1153, 600));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
         });
 
-        iniciarSesionLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
-        iniciarSesionLabel.setText("Iniciar Sesión");
-
         jButton1.setBackground(new java.awt.Color(0, 51, 255));
         jButton1.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Registrarse");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -108,42 +98,58 @@ public class Index extends javax.swing.JFrame {
         jTextField3.setText("     1000+ Prácticas Exitosas");
         jTextField3.setRequestFocusEnabled(false);
 
+        iniciarSesionButton.setBackground(new java.awt.Color(242, 242, 242));
+        iniciarSesionButton.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        iniciarSesionButton.setText("Iniciar Sesión");
+        iniciarSesionButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                iniciarSesionButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                iniciarSesionButtonMouseExited(evt);
+            }
+        });
+        iniciarSesionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                iniciarSesionButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(93, 93, 93)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(77, 77, 77)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(68, 68, 68)
+                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 115, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(iniciarSesionLabel)
-                        .addGap(32, 32, 32)
-                        .addComponent(jButton1)
-                        .addGap(24, 24, 24))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addGap(479, 479, 479))))
+                .addComponent(iniciarSesionButton)
+                .addGap(35, 35, 35)
+                .addComponent(jButton1)
+                .addGap(24, 24, 24))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(195, 195, 195)
-                        .addComponent(jLabel2))
+                        .addGap(459, 459, 459)
+                        .addComponent(jButton2))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(67, 67, 67)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(78, 78, 78)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 115, Short.MAX_VALUE))
+                        .addGap(228, 228, 228)
+                        .addComponent(jLabel2)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(iniciarSesionLabel)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(iniciarSesionButton))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
@@ -174,6 +180,24 @@ public class Index extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void iniciarSesionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarSesionButtonActionPerformed
+        Login loginFrame = new Login();
+        loginFrame.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_iniciarSesionButtonActionPerformed
+
+    private void iniciarSesionButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iniciarSesionButtonMouseEntered
+        iniciarSesionButton.setBackground(iniciarSesionButtonColorMouseEntered);
+    }//GEN-LAST:event_iniciarSesionButtonMouseEntered
+
+    private void iniciarSesionButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iniciarSesionButtonMouseExited
+        iniciarSesionButton.setBackground(iniciarSesionButtonColorMouseExited);
+    }//GEN-LAST:event_iniciarSesionButtonMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -200,7 +224,7 @@ public class Index extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel iniciarSesionLabel;
+    private javax.swing.JButton iniciarSesionButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;

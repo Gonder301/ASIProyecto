@@ -1,5 +1,7 @@
-package com.mycompany.asiproyecto;
+package com.mycompany.asiproyecto.view;
 
+import com.mycompany.asiproyecto.model.Usuario;
+import com.mycompany.asiproyecto.dao.UsuarioDAO;
 import java.awt.*;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -13,7 +15,7 @@ public class Login extends javax.swing.JFrame {
         super("Iniciar Sesion");
         initComponents();
         
-        ImageIcon icon = new ImageIcon(getClass().getResource("icon.png"));
+        ImageIcon icon = new ImageIcon(getClass().getResource("../assets/icon.png"));
         JLabel iconLabel = new JLabel(icon);
         iconLabel.setBounds(166, 10, 168, 59);
         getContentPane().add(iconLabel);
@@ -238,8 +240,8 @@ public class Login extends javax.swing.JFrame {
                 }
                 if (Arrays.equals(contraPasswordField.getPassword(), u.getContrasena().toCharArray())) {
                     //FALTA IMPLEMETAR PASAR LOS DATOS DE u AL NUEVO JFRAME
-                    VistaOportunidad vistaOportunidad = new VistaOportunidad();
-                    vistaOportunidad.setVisible(true);
+                    NotFound notFound = new NotFound();
+                    notFound.setVisible(true);
                     this.dispose();
                 }
                 else {

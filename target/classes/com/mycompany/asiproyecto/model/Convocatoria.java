@@ -1,4 +1,4 @@
-package com.mycompany.asiproyecto;
+package com.mycompany.asiproyecto.model;
 
 import java.time.LocalDateTime;
 
