@@ -11,6 +11,14 @@ public class Usuario {
     public Usuario() {
     }
     
+    public Usuario(int _id, String _nombre, String _email, String _contrasena, String _rol) {
+        id = _id;
+        nombre = _nombre;
+        email = _email;
+        contrasena = _contrasena;
+        rol = _rol;
+    }
+    
     public int getId() {
         return id;
     }

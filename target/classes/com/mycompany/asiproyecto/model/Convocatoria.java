@@ -14,11 +14,11 @@ public class Convocatoria {
     public Convocatoria() {
     }
 
-    public Convocatoria(String titulo, String descripcion, String imagenUrl, int adminId) {
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.imagenUrl = imagenUrl;
-        this.adminId = adminId;
+    public Convocatoria(String _titulo, String _descripcion, String _imagenUrl, int _adminId) {
+        titulo = _titulo;
+        descripcion = _descripcion;
+        imagenUrl = _imagenUrl;
+        adminId = _adminId;
     }
 
     // --- Getters y Setters ---

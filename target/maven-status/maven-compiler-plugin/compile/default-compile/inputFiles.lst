@@ -1,9 +1,14 @@
 C:\Users\abrah\OneDrive\Documents\NetBeansProjects\ASIProyecto\src\main\java\com\mycompany\asiproyecto\ASIProyecto.java
-C:\Users\abrah\OneDrive\Documents\NetBeansProjects\ASIProyecto\src\main\java\com\mycompany\asiproyecto\dao\ConvocatoriaDAO.java
+C:\Users\abrah\OneDrive\Documents\NetBeansProjects\ASIProyecto\src\main\java\com\mycompany\asiproyecto\dao\AlumnoDAO.java
+C:\Users\abrah\OneDrive\Documents\NetBeansProjects\ASIProyecto\src\main\java\com\mycompany\asiproyecto\dao\OfertaDAO.java
 C:\Users\abrah\OneDrive\Documents\NetBeansProjects\ASIProyecto\src\main\java\com\mycompany\asiproyecto\dao\UsuarioDAO.java
 C:\Users\abrah\OneDrive\Documents\NetBeansProjects\ASIProyecto\src\main\java\com\mycompany\asiproyecto\db\ConnectionPool.java
-C:\Users\abrah\OneDrive\Documents\NetBeansProjects\ASIProyecto\src\main\java\com\mycompany\asiproyecto\model\Convocatoria.java
+C:\Users\abrah\OneDrive\Documents\NetBeansProjects\ASIProyecto\src\main\java\com\mycompany\asiproyecto\model\Alumno.java
+C:\Users\abrah\OneDrive\Documents\NetBeansProjects\ASIProyecto\src\main\java\com\mycompany\asiproyecto\model\Oferta.java
 C:\Users\abrah\OneDrive\Documents\NetBeansProjects\ASIProyecto\src\main\java\com\mycompany\asiproyecto\model\Usuario.java
 C:\Users\abrah\OneDrive\Documents\NetBeansProjects\ASIProyecto\src\main\java\com\mycompany\asiproyecto\view\Index.java
 C:\Users\abrah\OneDrive\Documents\NetBeansProjects\ASIProyecto\src\main\java\com\mycompany\asiproyecto\view\Login.java
 C:\Users\abrah\OneDrive\Documents\NetBeansProjects\ASIProyecto\src\main\java\com\mycompany\asiproyecto\view\NotFound.java
+C:\Users\abrah\OneDrive\Documents\NetBeansProjects\ASIProyecto\src\main\java\com\mycompany\asiproyecto\view\OfertaPanel.java
+C:\Users\abrah\OneDrive\Documents\NetBeansProjects\ASIProyecto\src\main\java\com\mycompany\asiproyecto\view\OportunidadesJDialog.java
+C:\Users\abrah\OneDrive\Documents\NetBeansProjects\ASIProyecto\src\main\java\com\mycompany\asiproyecto\view\RegistrarseJDialog.java

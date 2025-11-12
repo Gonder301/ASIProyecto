@@ -7,26 +7,33 @@ import java.sql.SQLException;
 
 public class ConnectionPool {
     private static HikariConfig config = new HikariConfig();
-    
     private static HikariDataSource ds;
 
     static {
-        String host = "localhost";
-        String port = "3306";
-        String database = "ASIDB";
-        String user = "root";
-        String password = "ANGU01";
-        String url = "jdbc:mariadb://" + host + ":" + port + "/" + database;
-
+        String host;
+        String port;
+        String database;
+        String user;
+        String password;
+        String url;
+        
+        //AWS RDS MARIADB
+        host = "asidb.cle8qc2ek8bq.us-east-2.rds.amazonaws.com";
+        port = "3306";
+        database = "asidb";
+        user = "admin";
+        password = "Aq78ASNkBe0wSPBDd9E7";
+        url = "jdbc:mariadb://" + host + ":" + port + "/" + database;
+        
         config.setJdbcUrl(url);
         config.setUsername(user);
         config.setPassword(password);
 
-        // --- Configuración del Pool ---
-        config.setMaximumPoolSize(10); // Máximo de conexiones en el pool
-        config.setMinimumIdle(5);      // Mínimo de conexiones inactivas
-        config.setIdleTimeout(300000); // Tiempo que una conexión puede estar inactiva (5 min)
-        config.setConnectionTimeout(30000); // Tiempo de espera para obtener una conexión (30 seg)
+        // --- Connection Pool Configuration ---
+        config.setMaximumPoolSize(10);
+        config.setMinimumIdle(5);
+        config.setIdleTimeout(300000);
+        config.setConnectionTimeout(30000);
 
         // Optimizaciones recomendadas para MariaDB/MySQL
         config.addDataSourceProperty("cachePrepStmts", "true");
@@ -35,7 +42,13 @@ public class ConnectionPool {
 
         // Se crea el DataSource con la configuración
         ds = new HikariDataSource(config);
-        System.out.println("¡Pool de conexiones HikariCP inicializado!");
+        System.out.println("¡Pool de conexiones HikariCP inicializado");
+        
+        // Se asegura que se cierre el ConnectionPool cuando se cierra el programa
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            System.out.println("Cerrando ConnectionPool...");
+            ConnectionPool.closePool();
+        }));
     }
 
     private ConnectionPool() {}

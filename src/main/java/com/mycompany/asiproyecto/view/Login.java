@@ -39,7 +39,7 @@ public class Login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        iniciarSesionButton = new javax.swing.JButton();
         contraPasswordField = new javax.swing.JPasswordField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -82,13 +82,13 @@ public class Login extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(0, 51, 255));
         jLabel5.setText("¿Olvidaste tu contraseña?");
 
-        jButton1.setBackground(new java.awt.Color(0, 51, 255));
-        jButton1.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Iniciar Sesión");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        iniciarSesionButton.setBackground(new java.awt.Color(0, 51, 255));
+        iniciarSesionButton.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        iniciarSesionButton.setForeground(new java.awt.Color(255, 255, 255));
+        iniciarSesionButton.setText("Iniciar Sesión");
+        iniciarSesionButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                iniciarSesionButtonActionPerformed(evt);
             }
         });
 
@@ -110,7 +110,7 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(correoTextField, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(iniciarSesionButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -142,7 +142,7 @@ public class Login extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(contraPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(iniciarSesionButton)
                 .addGap(12, 12, 12))
         );
 
@@ -228,10 +228,13 @@ public class Login extends javax.swing.JFrame {
         contraPasswordField.setForeground(Color.GRAY);
     }//GEN-LAST:event_formWindowOpened
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //FALTA MOSTRAS MENSAJE DE CAMPOS VACIOS
-        if (!correoTextField.getText().trim().isEmpty()) {
-            if (contraPasswordField.getPassword().length != 0) {
+    private void iniciarSesionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarSesionButtonActionPerformed
+        //MEJORAR EL FLUJO DEL ALGORITMO
+        boolean correoVacio = correoTextField.getText().trim().isEmpty();
+        int contraSize = contraPasswordField.getPassword().length;
+        
+        if (!correoVacio) {
+            if (contraSize != 0) {
                 UsuarioDAO udao = new UsuarioDAO();
                 Usuario u = udao.obtenerUsuario(correoTextField.getText());
                 if (u == null) {
@@ -249,7 +252,7 @@ public class Login extends javax.swing.JFrame {
                 }
             }
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_iniciarSesionButtonActionPerformed
 
     private final String placeholderContra = "1234567890";
     private void contraPasswordFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contraPasswordFieldFocusGained
@@ -294,7 +297,7 @@ public class Login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField contraPasswordField;
     private javax.swing.JTextField correoTextField;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton iniciarSesionButton;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
