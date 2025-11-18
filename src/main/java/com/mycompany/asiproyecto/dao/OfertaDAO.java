@@ -2,6 +2,7 @@ package com.mycompany.asiproyecto.dao;
 
 import com.mycompany.asiproyecto.db.ConnectionPool;
 import com.mycompany.asiproyecto.model.Oferta;
+import com.mycompany.asiproyecto.model.Oferta;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

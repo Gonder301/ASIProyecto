@@ -1,107 +1,126 @@
 package com.mycompany.asiproyecto.model;
 
+import java.time.LocalDate;
+
 public class Alumno {
+    private int idAlumno;
     private String nombresAlumno;
     private String apellidosAlumno;
     private String dni;
     private String genero;
-    private String fechaNacimiento;
-    private String ciclo;
+    private LocalDate fechaNacimiento;
+    private String codigo;
     private String carrera;
+    private String curso;
+    private String docenteACargo;
     private String correoElectronico;
-    private String contrasena;
     
     public Alumno() {
     }
     
-    public Alumno(String _nombresAlumno, String _apellidosAlumno, String _dni, 
-            String _genero, String _fechaNacimiento, String _ciclo,
-            String _carrera, String _correoElectronico, String _contrasena) {
-        nombresAlumno = _nombresAlumno;
-        apellidosAlumno = _apellidosAlumno;
-        dni = _dni;
-        genero = _genero;
-        fechaNacimiento = _fechaNacimiento;
-        ciclo = _ciclo;
-        carrera = _carrera;
-        correoElectronico = _correoElectronico;
-        contrasena = _contrasena;
+    public Alumno(int idAlumno, String nombresAlumno, String apellidosAlumno, String dni, 
+                  String genero, LocalDate fechaNacimiento, String codigo, String carrera, 
+                  String curso, String docenteACargo, String correoElectronico) {
+        this.idAlumno = idAlumno;
+        this.nombresAlumno = nombresAlumno;
+        this.apellidosAlumno = apellidosAlumno;
+        this.dni = dni;
+        this.genero = genero;
+        this.fechaNacimiento = fechaNacimiento;
+        this.codigo = codigo;
+        this.carrera = carrera;
+        this.curso = curso;
+        this.docenteACargo = docenteACargo;
+        this.correoElectronico = correoElectronico;
     }
     
-    // --- Getters ---
+    // --- Getters y Setters---
+    
+    public int getIdAlumno() {
+        return idAlumno;
+    }
+
+    public void setIdAlumno(int idAlumno) {
+        this.idAlumno = idAlumno;
+    }
 
     public String getNombresAlumno() {
         return nombresAlumno;
+    }
+
+    public void setNombresAlumno(String nombresAlumno) {
+        this.nombresAlumno = nombresAlumno;
     }
 
     public String getApellidosAlumno() {
         return apellidosAlumno;
     }
 
-    public String getDni() {
-        return dni;
-    }
-
-    public String getGenero() {
-        return genero;
-    }
-
-    public String getFechaNacimiento() {
-        return fechaNacimiento;
-    }
-
-    public String getCiclo() {
-        return ciclo;
-    }
-
-    public String getCarrera() {
-        return carrera;
-    }
-
-    public String getCorreoElectronico() {
-        return correoElectronico;
-    }
-
-    public String getContrasena() {
-        return contrasena;
-    }
-
-    // --- Setters ---
-
-    public void setNombresAlumno(String nombresAlumno) {
-        this.nombresAlumno = nombresAlumno;
-    }
-
     public void setApellidosAlumno(String apellidosAlumno) {
         this.apellidosAlumno = apellidosAlumno;
+    }
+
+    public String getDni() {
+        return dni;
     }
 
     public void setDni(String dni) {
         this.dni = dni;
     }
 
+    public String getGenero() {
+        return genero;
+    }
+
     public void setGenero(String genero) {
         this.genero = genero;
     }
 
-    public void setFechaNacimiento(String fechaNacimiento) {
+    public LocalDate getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public void setCiclo(String ciclo) {
-        this.ciclo = ciclo;
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public String getCarrera() {
+        return carrera;
     }
 
     public void setCarrera(String carrera) {
         this.carrera = carrera;
     }
 
+    public String getCurso() {
+        return curso;
+    }
+
+    public void setCurso(String curso) {
+        this.curso = curso;
+    }
+
+    public String getDocenteACargo() {
+        return docenteACargo;
+    }
+
+    public void setDocenteACargo(String docenteACargo) {
+        this.docenteACargo = docenteACargo;
+    }
+
+    public String getCorreoElectronico() {
+        return correoElectronico;
+    }
+
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
     }
-
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
-    }
-    
 }

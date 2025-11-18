@@ -2,6 +2,11 @@ package com.mycompany.asiproyecto.view;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import javax.swing.text.DocumentFilter;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.AttributeSet;
+
 /**
  *
  * @author abrah
@@ -19,6 +24,30 @@ public class RegistrarseJDialog extends javax.swing.JDialog {
     public RegistrarseJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        // Restricción de 8 dígitos para DNI
+        AbstractDocument document = (AbstractDocument) estudianteDniTextField.getDocument();
+        document.setDocumentFilter(new DocumentFilter() {
+            private int maxLenght = 8;
+            
+            @Override
+            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                if (text != null && !text.matches("\\d+")) {
+                    return;
+                }
+                
+                int currentLength = fb.getDocument().getLength();
+                int overLimit = (currentLength + text.length()) - length - maxLenght;
+                
+                if (overLimit <= 0) {
+                    super.replace(fb, offset, length, text, attrs);
+                }
+                else {
+                    String cutDownText = text.substring(0, text.length() - overLimit);
+                    super.replace(fb, offset, length, cutDownText, attrs);
+                }
+            }
+        });
     }
 
     /**
@@ -44,7 +73,7 @@ public class RegistrarseJDialog extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        estudianteDniTextField = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
@@ -127,7 +156,7 @@ public class RegistrarseJDialog extends javax.swing.JDialog {
 
         jLabel6.setText("DNI");
 
-        jTextField4.setText("12345678");
+        estudianteDniTextField.setText("12345678");
 
         jLabel7.setText("Genero");
 
@@ -170,7 +199,7 @@ public class RegistrarseJDialog extends javax.swing.JDialog {
                     .addComponent(jTextField3)
                     .addComponent(jTextField6)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField4)
+                    .addComponent(estudianteDniTextField)
                     .addComponent(jLabel7)
                     .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel9)
@@ -202,7 +231,7 @@ public class RegistrarseJDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(estudianteDniTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -470,6 +499,7 @@ public class RegistrarseJDialog extends javax.swing.JDialog {
     private javax.swing.JButton botonProfesor;
     private javax.swing.JPanel cardHolderPanel;
     private javax.swing.JPanel empresaPanel;
+    private javax.swing.JTextField estudianteDniTextField;
     private javax.swing.JPanel estudiantePanel;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -502,7 +532,6 @@ public class RegistrarseJDialog extends javax.swing.JDialog {
     private javax.swing.JTextField jTextField15;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;

@@ -1,8 +1,7 @@
 
-package com.mycompany.asiproyecto.dao;
+package com.mycompany.asiproyecto.model;
 
 import com.mycompany.asiproyecto.db.ConnectionPool;
-import com.mycompany.asiproyecto.model.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

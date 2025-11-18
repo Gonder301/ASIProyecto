@@ -496,7 +496,7 @@ public class Index extends javax.swing.JFrame {
     }//GEN-LAST:event_registrarseButtonActionPerformed
 
     private void iniciarSesionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarSesionButtonActionPerformed
-        Login loginFrame = new Login();
+        LoginView loginFrame = new LoginView();
         loginFrame.setVisible(true);
         //dispose();
     }//GEN-LAST:event_iniciarSesionButtonActionPerformed

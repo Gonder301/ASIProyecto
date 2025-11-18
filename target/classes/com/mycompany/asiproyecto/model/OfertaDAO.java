@@ -1,7 +1,6 @@
-package com.mycompany.asiproyecto.dao;
+package com.mycompany.asiproyecto.model;
 
 import com.mycompany.asiproyecto.db.ConnectionPool;
-import com.mycompany.asiproyecto.model.Oferta;
 import com.mycompany.asiproyecto.model.Oferta;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

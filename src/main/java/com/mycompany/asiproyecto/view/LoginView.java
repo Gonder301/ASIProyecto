@@ -1,16 +1,21 @@
 package com.mycompany.asiproyecto.view;
 
+import com.mycompany.asiproyecto.controller.LoginController;
+import com.mycompany.asiproyecto.service.LoginService;
+import com.mycompany.asiproyecto.Placeholder;
+import com.mycompany.asiproyecto.Colores;
 
 import java.awt.*;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import java.util.Arrays;
+import javax.swing.border.LineBorder;
 
-public class Login extends javax.swing.JFrame {
+public class LoginView extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Login.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LoginView.class.getName());
 
-    public Login() {
+    public LoginView() {
         super("Iniciar Sesion");
         initComponents();
         
@@ -21,7 +26,20 @@ public class Login extends javax.swing.JFrame {
         //Centra el JFrame en la pantalla
         setLocationRelativeTo(null);
     }
+    
+    public void cambiarCorreoBorder(Color c, int t) {
+        LineBorder lineBorder = new LineBorder(c, t);
+        correoTextField.setBorder(lineBorder);
+    }
 
+    public void cambiarContraBorder(Color c, int t) {
+        LineBorder lineBorder = new LineBorder(c, t);
+        contraPasswordField.setBorder(lineBorder);
+    }
+    
+    public void cambiarMsgError(String e) {
+        msgError.setText(e);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,11 +59,9 @@ public class Login extends javax.swing.JFrame {
         iniciarSesionButton = new javax.swing.JButton();
         contraPasswordField = new javax.swing.JPasswordField();
         jLabel8 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        tipoUsuarioComboBox = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         msgError = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -65,6 +81,7 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(153, 153, 153));
         jLabel3.setText("Ingresa tus credenciales para acceder a tu cuenta");
 
+        correoTextField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         correoTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 correoTextFieldFocusGained(evt);
@@ -93,6 +110,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        contraPasswordField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         contraPasswordField.setEchoChar('*');
         contraPasswordField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -106,7 +124,7 @@ public class Login extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel8.setText("Tipo de Usuario");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alumno", "Profesor", "Empresa" }));
+        tipoUsuarioComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alumno", "Profesor", "Empresa" }));
 
         jLabel9.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jLabel9.setText("¿No tienes una cuenta?");
@@ -120,30 +138,37 @@ public class Login extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(iniciarSesionButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(correoTextField, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(contraPasswordField)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(iniciarSesionButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(correoTextField, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(contraPasswordField)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel8)
+                                    .addComponent(tipoUsuarioComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGap(114, 114, 114)
+                                        .addComponent(jLabel5)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel8)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(114, 114, 114)
-                                .addComponent(jLabel5)))
+                                .addGap(50, 50, 50)
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel10))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(msgError)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,7 +180,7 @@ public class Login extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tipoUsuarioComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -172,30 +197,18 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(jLabel10))
-                .addGap(31, 31, 31))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(msgError)
+                .addGap(9, 9, 9))
         );
-
-        jLabel6.setText("¿No tienes una cuenta?");
-
-        jLabel7.setForeground(new java.awt.Color(0, 51, 255));
-        jLabel7.setText("Regístrate aquí");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(134, 134, 134)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel7))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(msgError))))
+                .addGap(76, 76, 76)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(93, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -203,21 +216,15 @@ public class Login extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(75, 75, 75)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(msgError)
-                .addGap(10, 10, 10))
+                .addGap(66, 66, 66))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private final String placeholderCorreo = "ejemplo@unmsm.edu.pe";
     private void correoTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_correoTextFieldFocusGained
-        if (correoTextField.getText().equals(placeholderCorreo)) {
+        cambiarCorreoBorder(Colores.textFieldBorderDef, 1);
+        if (correoTextField.getText().equals(Placeholder.correo)) {
         correoTextField.setText("");
         correoTextField.setForeground(Color.BLACK);
         }
@@ -225,49 +232,36 @@ public class Login extends javax.swing.JFrame {
 
     private void correoTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_correoTextFieldFocusLost
         if (correoTextField.getText().isEmpty()) {
-        correoTextField.setText(placeholderCorreo);
+        correoTextField.setText(Placeholder.correo);
         correoTextField.setForeground(Color.GRAY);
         }
     }//GEN-LAST:event_correoTextFieldFocusLost
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         this.requestFocusInWindow();
-        correoTextField.setText(placeholderCorreo);
+        correoTextField.setText(Placeholder.correo);
         correoTextField.setForeground(Color.GRAY);
     
-        contraPasswordField.setText(placeholderContra);
+        contraPasswordField.setText(Placeholder.contra);
         contraPasswordField.setForeground(Color.GRAY);
     }//GEN-LAST:event_formWindowOpened
 
     private void iniciarSesionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarSesionButtonActionPerformed
-        //MEJORAR EL FLUJO DEL ALGORITMO
-        boolean correoVacio = correoTextField.getText().trim().isEmpty();
-        int contraSize = contraPasswordField.getPassword().length;
+        String tipoUsuario = (String) tipoUsuarioComboBox.getSelectedItem();
+        String correo = correoTextField.getText();
+        char[] contrasena = contraPasswordField.getPassword();
         
-        if (!correoVacio) {
-            if (contraSize != 0) {
-                /*UsuarioDAO udao = new UsuarioDAO();
-                Usuario u = udao.obtenerUsuario(correoTextField.getText());
-                if (u == null) {
-                    msgError.setText("Correo no registrado");
-                    return;
-                }
-                if (Arrays.equals(contraPasswordField.getPassword(), u.getContrasena().toCharArray())) {
-                    //FALTA IMPLEMETAR PASAR LOS DATOS DE u AL NUEVO JFRAME
-                    NotFound notFound = new NotFound();
-                    notFound.setVisible(true);
-                    this.dispose();
-                }
-                else {
-                    msgError.setText("Contraseña incorrecta");
-                }*/
-            }
-        }
+        LoginService ls = new LoginService();
+        int codigoValidacion = ls.validarCampos(correo, contrasena);
+        
+        LoginController lc = new LoginController();
+        lc.procesarValidacion(codigoValidacion, this);
+        
     }//GEN-LAST:event_iniciarSesionButtonActionPerformed
 
-    private final String placeholderContra = "1234567890";
     private void contraPasswordFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contraPasswordFieldFocusGained
-        if (Arrays.equals(contraPasswordField.getPassword(), placeholderContra.toCharArray())) {
+        cambiarContraBorder(Colores.textFieldBorderDef, 1);
+        if (Arrays.equals(contraPasswordField.getPassword(), Placeholder.contra.toCharArray())) {
         contraPasswordField.setText("");
         contraPasswordField.setForeground(Color.BLACK);
         }
@@ -275,7 +269,7 @@ public class Login extends javax.swing.JFrame {
 
     private void contraPasswordFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contraPasswordFieldFocusLost
         if (contraPasswordField.getPassword().length == 0) {
-        contraPasswordField.setText(placeholderContra);
+        contraPasswordField.setText(Placeholder.contra);
         contraPasswordField.setForeground(Color.GRAY);
         }
     }//GEN-LAST:event_contraPasswordFieldFocusLost
@@ -302,25 +296,23 @@ public class Login extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Login().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new LoginView().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField contraPasswordField;
     private javax.swing.JTextField correoTextField;
     private javax.swing.JButton iniciarSesionButton;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel msgError;
+    private javax.swing.JComboBox<String> tipoUsuarioComboBox;
     // End of variables declaration//GEN-END:variables
 }
