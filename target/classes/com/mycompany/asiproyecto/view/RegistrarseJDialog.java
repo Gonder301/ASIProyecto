@@ -3,12 +3,13 @@ package com.mycompany.asiproyecto.view;
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 
-import com.mycompany.asiproyecto.Placeholder;
+import java.awt.*;
 import com.mycompany.asiproyecto.Colores;
 import com.mycompany.asiproyecto.model.*;
 import com.mycompany.asiproyecto.controller.RegistrarseController;
 import java.awt.CardLayout;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.BadLocationException;
@@ -85,15 +86,7 @@ public class RegistrarseJDialog extends javax.swing.JDialog {
         });
     }
 
-    public char[] getPassword() {
-        return contraPasswordFieldA.getPassword();
-    }
-    
-    public void setMsgRegistrarse(String m) {
-        msgRegistrarse.setText(m);
-    }
-    
-    //Necesario?
+    //Mover a RegistrarseService
     public Alumno obtenerAlumnoDeForm() {
         Alumno a = new Alumno();
         a.setNombresAlumno(nombresTextFieldA.getText());
@@ -147,9 +140,9 @@ public class RegistrarseJDialog extends javax.swing.JDialog {
         jLabel22 = new javax.swing.JLabel();
         docenteCargoTextFieldA = new javax.swing.JTextField();
         jLabel31 = new javax.swing.JLabel();
-        contraPasswordFieldA = new javax.swing.JPasswordField();
-        contra2PasswordFieldA = new javax.swing.JPasswordField();
-        msgRegistrarse = new javax.swing.JLabel();
+        contraPasswordFieldA1 = new javax.swing.JPasswordField();
+        contraPasswordFieldA2 = new javax.swing.JPasswordField();
+        msgRegistrarseA = new javax.swing.JLabel();
         datePickerPlaceholderA = new javax.swing.JTextField();
         empresaPanel = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
@@ -229,25 +222,15 @@ public class RegistrarseJDialog extends javax.swing.JDialog {
 
         jLabel3.setText("Nombres");
 
-        nombresTextFieldA.setText("Juan Carlos");
-
         jLabel4.setText("Apellidos");
-
-        apellidoTextFieldA.setText("Ruiz Flores");
 
         jLabel5.setText("Código de estudiante");
 
-        codigoTextFieldA.setText("XXXXXXXX");
-
         jLabel6.setText("DNI");
-
-        dniTextFieldA.setText("12345678");
 
         jLabel7.setText("Genero");
 
         jLabel8.setText("Correo institucional");
-
-        correoTextFieldA.setText("ejemplo.correo@unmsm.edu.pe");
 
         generoComboBoxA.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Femenino", "No especifico" }));
 
@@ -275,11 +258,7 @@ public class RegistrarseJDialog extends javax.swing.JDialog {
 
         jLabel31.setText("Fecha de nacimiento");
 
-        contraPasswordFieldA.setText("jPasswordField3");
-
-        contra2PasswordFieldA.setText("jPasswordField4");
-
-        msgRegistrarse.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        msgRegistrarseA.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout estudiantePanelLayout = new javax.swing.GroupLayout(estudiantePanel);
         estudiantePanel.setLayout(estudiantePanelLayout);
@@ -300,8 +279,8 @@ public class RegistrarseJDialog extends javax.swing.JDialog {
                             .addGroup(estudiantePanelLayout.createSequentialGroup()
                                 .addGap(7, 7, 7)
                                 .addComponent(botonEstudianteSiguente, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(contraPasswordFieldA)
-                            .addComponent(contra2PasswordFieldA)
+                            .addComponent(contraPasswordFieldA1)
+                            .addComponent(contraPasswordFieldA2)
                             .addGroup(estudiantePanelLayout.createSequentialGroup()
                                 .addGroup(estudiantePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, estudiantePanelLayout.createSequentialGroup()
@@ -338,8 +317,8 @@ public class RegistrarseJDialog extends javax.swing.JDialog {
                                     .addComponent(docenteCargoTextFieldA)))))
                     .addGroup(estudiantePanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(msgRegistrarse)))
-                .addGap(0, 52, Short.MAX_VALUE))
+                        .addComponent(msgRegistrarseA)))
+                .addGap(0, 14, Short.MAX_VALUE))
         );
         estudiantePanelLayout.setVerticalGroup(
             estudiantePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -387,16 +366,16 @@ public class RegistrarseJDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(contraPasswordFieldA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(contraPasswordFieldA1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(contra2PasswordFieldA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(contraPasswordFieldA2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48)
                 .addComponent(botonEstudianteSiguente)
                 .addGap(30, 30, 30)
-                .addComponent(msgRegistrarse)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addComponent(msgRegistrarseA)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         cardHolderPanel.add(estudiantePanel, "estudianteCard");
@@ -761,7 +740,7 @@ public class RegistrarseJDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField apellidoTextFieldA;
+    public javax.swing.JTextField apellidoTextFieldA;
     private javax.swing.JButton botonEmpresa;
     private javax.swing.JButton botonEstudiante;
     private javax.swing.JButton botonEstudianteSiguente;
@@ -769,8 +748,8 @@ public class RegistrarseJDialog extends javax.swing.JDialog {
     private javax.swing.JPanel cardHolderPanel;
     private javax.swing.JComboBox<String> carreraComboBoxA;
     private javax.swing.JTextField codigoTextFieldA;
-    private javax.swing.JPasswordField contra2PasswordFieldA;
-    private javax.swing.JPasswordField contraPasswordFieldA;
+    public javax.swing.JPasswordField contraPasswordFieldA1;
+    public javax.swing.JPasswordField contraPasswordFieldA2;
     private javax.swing.JTextField correoTextFieldA;
     private javax.swing.JTextField cursoTextFieldA;
     private javax.swing.JTextField datePickerPlaceholderA;
@@ -828,8 +807,8 @@ public class RegistrarseJDialog extends javax.swing.JDialog {
     private javax.swing.JTextField jTextField21;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
-    private javax.swing.JLabel msgRegistrarse;
-    private javax.swing.JTextField nombresTextFieldA;
+    public javax.swing.JLabel msgRegistrarseA;
+    public javax.swing.JTextField nombresTextFieldA;
     private javax.swing.JPanel profesorPanel;
     // End of variables declaration//GEN-END:variables
 }
