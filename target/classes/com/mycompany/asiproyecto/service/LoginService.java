@@ -4,13 +4,13 @@ import com.mycompany.asiproyecto.model.*;
 import com.mycompany.asiproyecto.dao.*;
 
 public class LoginService {
-    public Alumno consultarAlumnoDB(String correoElectronico, String contrasena) {
+    public Alumno consultarAlumnoDB(String correoElectronico, char[] contrasena) {
         AlumnoDAO adao = new AlumnoDAO();
         Alumno a = adao.obtenerAlumno(correoElectronico, contrasena);
         return a;
     }
     
-    public Profesor consultarProfesorDB(String correoElectronico, String contrasena) {
+    public Profesor consultarProfesorDB(String correoElectronico, char[] contrasena) {
         ProfesorDAO pdao = new ProfesorDAO();
         Profesor p = pdao.obtenerProfesor(correoElectronico, contrasena);
         return p;

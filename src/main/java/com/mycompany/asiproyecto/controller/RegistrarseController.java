@@ -114,7 +114,7 @@ public class RegistrarseController {
         
         //Poner dentro de servicio
         AlumnoDAO adao = new AlumnoDAO();
-        if (adao.registrarAlumno(a, new String(contrasena))) {
+        if (adao.registrarAlumno(a, contrasena)) {
             vista.msgRegistrarseA.setText("El alumno se registró con éxito.");
         }
     }
@@ -209,7 +209,7 @@ public class RegistrarseController {
         
         //Poner dentro de servicio
         ProfesorDAO pdao = new ProfesorDAO();
-        if (pdao.registrarProfesor(p, new String(contrasena))) {
+        if (pdao.registrarProfesor(p, contrasena)) {
             vista.msgRegistrarseP.setText("El profesor se registró con éxito.");
         }
     }

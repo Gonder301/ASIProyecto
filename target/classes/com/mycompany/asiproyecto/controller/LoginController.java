@@ -43,7 +43,7 @@ public class LoginController {
                 String tipoUsuario = vista.getTipoUsuario();
                 //Poner dentro de una funcion.
                 if (tipoUsuario.equals("Alumno")) {
-                    Alumno a = ls.consultarAlumnoDB(correo, new String(contrasena));
+                    Alumno a = ls.consultarAlumnoDB(correo, contrasena);
                     if (a != null) {
                         InicioAlumno inicioAlumno = new InicioAlumno(a);
                         inicioAlumno.setVisible(true);
@@ -55,7 +55,7 @@ public class LoginController {
                         vista.setMsgError("Credenciales incorrectas.");
                     }
                 } else if (tipoUsuario.equals("Profesor")) {
-                    Profesor p = ls.consultarProfesorDB(correo, new String(contrasena));
+                    Profesor p = ls.consultarProfesorDB(correo, contrasena);
                     if (p != null) {
                         InicioProfesor inicioProfesor = new InicioProfesor(p);
                         inicioProfesor.setVisible(true);

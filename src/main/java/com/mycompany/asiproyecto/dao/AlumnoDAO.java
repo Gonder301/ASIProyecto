@@ -2,26 +2,27 @@ package com.mycompany.asiproyecto.dao;
 
 import com.mycompany.asiproyecto.db.ConnectionPool;
 import com.mycompany.asiproyecto.model.Alumno;
+import com.mycompany.asiproyecto.service.PasswordService;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AlumnoDAO {
-    public Alumno obtenerAlumno(String correoElectronico, String contrasena) {
+    public Alumno obtenerAlumno(String correoElectronico, char[] contrasena) {
         Alumno a = null;
         
         String sql = "SELECT * FROM Alumno WHERE correoElectronico = ? AND contrasena = ?";
 
         try (Connection conn = ConnectionPool.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setString(1, correoElectronico);
-            pstmt.setString(2, contrasena);
             
-            // 4. Ejecuta la consulta (ya no se le pasa 'sql' aquí)
+            String hashContrasena = PasswordService.hash(contrasena);
+            pstmt.setString(1, correoElectronico);
+            pstmt.setString(2, hashContrasena);
+            
             try (ResultSet rs = pstmt.executeQuery()) {
-
                 if (rs.next()) {
                     a = new Alumno(); 
                     a.setIdAlumno(rs.getInt("idAlumno"));
@@ -50,7 +51,7 @@ public class AlumnoDAO {
         return a;
     }
     
-    public boolean registrarAlumno(Alumno a, String contrasena) {
+    public boolean registrarAlumno(Alumno a, char[] contrasena) {
         boolean registrado = false;
     
         String sql = "INSERT INTO Alumno (nombresAlumno, apellidosAlumno, dni, genero, " +
@@ -61,13 +62,11 @@ public class AlumnoDAO {
         try (Connection conn = ConnectionPool.getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-        // Asignar valores desde el objeto Alumno
             pstmt.setString(1, a.getNombresAlumno());
             pstmt.setString(2, a.getApellidosAlumno());
             pstmt.setString(3, a.getDni());
             pstmt.setString(4, a.getGenero());
 
-        // Conversión segura de LocalDate a java.sql.Date
             if (a.getFechaNacimiento() != null) {
                 pstmt.setDate(5, java.sql.Date.valueOf(a.getFechaNacimiento()));
             } else {
@@ -80,13 +79,11 @@ public class AlumnoDAO {
             pstmt.setString(9, a.getDocenteACargo());
             pstmt.setString(10, a.getCorreoElectronico());
         
-        // Asignar la contraseña (parámetro extra)
-            pstmt.setString(11, contrasena);
+            String hashContrasena = PasswordService.hash(contrasena);
+            pstmt.setString(11, hashContrasena);
 
-        // Ejecutar la inserción
             int filasAfectadas = pstmt.executeUpdate();
         
-        // Si se insertó al menos una fila, retornamos true
             if (filasAfectadas > 0) {
                 registrado = true;
             }

@@ -30,6 +30,7 @@ com\mycompany\asiproyecto\dao\EmpleadoEmpresaDAO.class
 com\mycompany\asiproyecto\db\ConnectionPool.class
 com\mycompany\asiproyecto\view\RegistrarseJDialog.class
 com\mycompany\asiproyecto\view\OportunidadesJDialog$1$1.class
+com\mycompany\asiproyecto\service\PasswordService.class
 com\mycompany\asiproyecto\view\LoginJDialog$4.class
 com\mycompany\asiproyecto\view\Index$2.class
 com\mycompany\asiproyecto\view\OfertaPanel.class
