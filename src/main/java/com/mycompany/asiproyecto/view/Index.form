@@ -28,7 +28,8 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="iconLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="iniciarSesionButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
@@ -99,10 +100,14 @@
                           <Component id="registrarseButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="iniciarSesionButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="iconLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jButton2" min="-2" max="-2" attributes="0"/>
@@ -244,10 +249,10 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="iniciarSesionButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="iconLabel">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\abrah\OneDrive\Documents\NetBeansProjects\ASIProyecto\src\main\java\com\mycompany\asiproyecto\assets\icon.png"/>
+          <Image iconType="3" name="/com/mycompany/asiproyecto/resources/icon.png"/>
         </Property>
       </Properties>
     </Component>
@@ -336,7 +341,7 @@
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\abrah\OneDrive\Documents\NetBeansProjects\ASIProyecto\src\main\java\com\mycompany\asiproyecto\assets\index-icons\loupe.png"/>
+              <Image iconType="3" name="/com/mycompany/asiproyecto/resources/loupe.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
@@ -386,7 +391,7 @@
         <Component class="javax.swing.JLabel" name="jLabel8">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\abrah\OneDrive\Documents\NetBeansProjects\ASIProyecto\src\main\java\com\mycompany\asiproyecto\assets\index-icons\approve.png"/>
+              <Image iconType="3" name="/com/mycompany/asiproyecto/resources/approve.png"/>
             </Property>
           </Properties>
         </Component>
@@ -453,7 +458,7 @@
         <Component class="javax.swing.JLabel" name="jLabel9">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\abrah\OneDrive\Documents\NetBeansProjects\ASIProyecto\src\main\java\com\mycompany\asiproyecto\assets\index-icons\shield.png"/>
+              <Image iconType="3" name="/com/mycompany/asiproyecto/resources/shield.png"/>
             </Property>
           </Properties>
         </Component>
@@ -521,7 +526,7 @@
         <Component class="javax.swing.JLabel" name="jLabel10">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\abrah\OneDrive\Documents\NetBeansProjects\ASIProyecto\src\main\java\com\mycompany\asiproyecto\assets\index-icons\trend.png"/>
+              <Image iconType="3" name="/com/mycompany/asiproyecto/resources/trend.png"/>
             </Property>
           </Properties>
         </Component>
@@ -591,7 +596,7 @@
         <Component class="javax.swing.JLabel" name="jLabel11">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\abrah\OneDrive\Documents\NetBeansProjects\ASIProyecto\src\main\java\com\mycompany\asiproyecto\assets\index-icons\users.png"/>
+              <Image iconType="3" name="/com/mycompany/asiproyecto/resources/users.png"/>
             </Property>
           </Properties>
         </Component>
@@ -659,7 +664,7 @@
         <Component class="javax.swing.JLabel" name="jLabel12">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\abrah\OneDrive\Documents\NetBeansProjects\ASIProyecto\src\main\java\com\mycompany\asiproyecto\assets\index-icons\medal.png"/>
+              <Image iconType="3" name="/com/mycompany/asiproyecto/resources/medal.png"/>
             </Property>
           </Properties>
         </Component>

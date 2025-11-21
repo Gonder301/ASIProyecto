@@ -42,7 +42,7 @@ public class Index extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         iniciarSesionButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        iconLabel = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -145,7 +145,7 @@ public class Index extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\abrah\\OneDrive\\Documents\\NetBeansProjects\\ASIProyecto\\src\\main\\java\\com\\mycompany\\asiproyecto\\assets\\icon.png")); // NOI18N
+        iconLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/asiproyecto/resources/icon.png"))); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -165,7 +165,7 @@ public class Index extends javax.swing.JFrame {
         jLabel6.setText("<html>Encuentra oportunidades de prácticas que se"
             +"ajusten a tu perfil y objetivos profesionales.</html>");
 
-        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\abrah\\OneDrive\\Documents\\NetBeansProjects\\ASIProyecto\\src\\main\\java\\com\\mycompany\\asiproyecto\\assets\\index-icons\\loupe.png")); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/asiproyecto/resources/loupe.png"))); // NOI18N
         jLabel7.setToolTipText("");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -197,7 +197,7 @@ public class Index extends javax.swing.JFrame {
 
         jPanel2.setPreferredSize(new java.awt.Dimension(315, 120));
 
-        jLabel8.setIcon(new javax.swing.ImageIcon("C:\\Users\\abrah\\OneDrive\\Documents\\NetBeansProjects\\ASIProyecto\\src\\main\\java\\com\\mycompany\\asiproyecto\\assets\\index-icons\\approve.png")); // NOI18N
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/asiproyecto/resources/approve.png"))); // NOI18N
 
         jLabel19.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel19.setText("Gestión Automatizada");
@@ -234,7 +234,7 @@ public class Index extends javax.swing.JFrame {
 
         jPanel3.setPreferredSize(new java.awt.Dimension(315, 120));
 
-        jLabel9.setIcon(new javax.swing.ImageIcon("C:\\Users\\abrah\\OneDrive\\Documents\\NetBeansProjects\\ASIProyecto\\src\\main\\java\\com\\mycompany\\asiproyecto\\assets\\index-icons\\shield.png")); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/asiproyecto/resources/shield.png"))); // NOI18N
 
         jLabel18.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel18.setText("Empresas Verificadas");
@@ -272,7 +272,7 @@ public class Index extends javax.swing.JFrame {
         jPanel4.setPreferredSize(new java.awt.Dimension(315, 120));
         jPanel4.setRequestFocusEnabled(false);
 
-        jLabel10.setIcon(new javax.swing.ImageIcon("C:\\Users\\abrah\\OneDrive\\Documents\\NetBeansProjects\\ASIProyecto\\src\\main\\java\\com\\mycompany\\asiproyecto\\assets\\index-icons\\trend.png")); // NOI18N
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/asiproyecto/resources/trend.png"))); // NOI18N
 
         jLabel16.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel16.setText("<html>Seguimiento en "
@@ -310,7 +310,7 @@ public class Index extends javax.swing.JFrame {
 
         jPanel5.setPreferredSize(new java.awt.Dimension(315, 120));
 
-        jLabel11.setIcon(new javax.swing.ImageIcon("C:\\Users\\abrah\\OneDrive\\Documents\\NetBeansProjects\\ASIProyecto\\src\\main\\java\\com\\mycompany\\asiproyecto\\assets\\index-icons\\users.png")); // NOI18N
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/asiproyecto/resources/users.png"))); // NOI18N
 
         jLabel15.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel15.setText("Red de Contactos");
@@ -348,7 +348,7 @@ public class Index extends javax.swing.JFrame {
 
         jPanel6.setPreferredSize(new java.awt.Dimension(315, 120));
 
-        jLabel12.setIcon(new javax.swing.ImageIcon("C:\\Users\\abrah\\OneDrive\\Documents\\NetBeansProjects\\ASIProyecto\\src\\main\\java\\com\\mycompany\\asiproyecto\\assets\\index-icons\\medal.png")); // NOI18N
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/asiproyecto/resources/medal.png"))); // NOI18N
 
         jLabel13.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel13.setText("Validación Académica");
@@ -389,7 +389,8 @@ public class Index extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jLabel1)
+                .addContainerGap()
+                .addComponent(iconLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(iniciarSesionButton)
                 .addGap(35, 35, 35)
@@ -443,9 +444,12 @@ public class Index extends javax.swing.JFrame {
                         .addGap(16, 16, 16)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(registrarseButton)
-                            .addComponent(iniciarSesionButton)))
-                    .addComponent(jLabel1))
-                .addGap(15, 15, 15)
+                            .addComponent(iniciarSesionButton))
+                        .addGap(23, 23, 23))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(iconLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
@@ -534,9 +538,9 @@ public class Index extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel iconLabel;
     private javax.swing.JButton iniciarSesionButton;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
