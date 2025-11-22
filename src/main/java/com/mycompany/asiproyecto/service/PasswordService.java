@@ -18,4 +18,9 @@ public class PasswordService {
             argon2.wipeArray(password);
         }
     }
+    
+    public static boolean verify(String hashFromDatabase, char[] passwordInput) {
+        Argon2 argon2 = Argon2Factory.create(Argon2Types.ARGON2id);
+        return argon2.verify(hashFromDatabase, passwordInput);
+    }
 }

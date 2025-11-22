@@ -15,7 +15,7 @@ public class Index extends javax.swing.JFrame {
     public Index() {
         initComponents();
         
-        ImageIcon bg = new ImageIcon(getClass().getResource("../assets/index-bg.png"));
+        ImageIcon bg = new ImageIcon(getClass().getResource("/com/mycompany/asiproyecto/resources/index-bg.png"));
         JLabel bgLabel = new JLabel(bg);
         bgLabel.setBounds(0, 65, 1153, 600);
         getContentPane().add(bgLabel);
@@ -34,7 +34,7 @@ public class Index extends javax.swing.JFrame {
 
         registrarseButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        oportunidadesButton = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
@@ -89,12 +89,12 @@ public class Index extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Conectamos Talento con Oportunidades");
 
-        jButton2.setBackground(new java.awt.Color(255, 204, 0));
-        jButton2.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
-        jButton2.setText("Buscar Oportunidades");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        oportunidadesButton.setBackground(new java.awt.Color(255, 204, 0));
+        oportunidadesButton.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        oportunidadesButton.setText("Buscar Oportunidades");
+        oportunidadesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                oportunidadesButtonActionPerformed(evt);
             }
         });
 
@@ -112,11 +112,6 @@ public class Index extends javax.swing.JFrame {
         jTextField2.setText("     150+Empresas Asociadas");
         jTextField2.setToolTipText("");
         jTextField2.setRequestFocusEnabled(false);
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
 
         jTextField3.setEditable(false);
         jTextField3.setBackground(new java.awt.Color(102, 102, 255));
@@ -430,7 +425,7 @@ public class Index extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addGap(171, 171, 171))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(oportunidadesButton)
                         .addGap(451, 451, 451))))
         );
         layout.setVerticalGroup(
@@ -449,7 +444,7 @@ public class Index extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(oportunidadesButton)
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -479,15 +474,11 @@ public class Index extends javax.swing.JFrame {
         this.requestFocusInWindow();
     }//GEN-LAST:event_formWindowOpened
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void oportunidadesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oportunidadesButtonActionPerformed
         OportunidadesJDialog oportunidadesJDialog = new OportunidadesJDialog(this, true);
         oportunidadesJDialog.setLocationRelativeTo(this);
         oportunidadesJDialog.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_oportunidadesButtonActionPerformed
 
     private void registrarseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarseButtonActionPerformed
         RegistrarseJDialog registrarseDialog = new RegistrarseJDialog(this, true);
@@ -502,7 +493,7 @@ public class Index extends javax.swing.JFrame {
     }//GEN-LAST:event_iniciarSesionButtonActionPerformed
 
     private void iniciarSesionButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iniciarSesionButtonMouseEntered
-        iniciarSesionButton.setBackground(Colores.BUTTON_ORANGE);
+        iniciarSesionButton.setBackground(Colores.BUTTON_YELLOW);
     }//GEN-LAST:event_iniciarSesionButtonMouseEntered
 
     private void iniciarSesionButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iniciarSesionButtonMouseExited
@@ -537,7 +528,6 @@ public class Index extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel iconLabel;
     private javax.swing.JButton iniciarSesionButton;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -568,6 +558,7 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JButton oportunidadesButton;
     private javax.swing.JButton registrarseButton;
     // End of variables declaration//GEN-END:variables
 }

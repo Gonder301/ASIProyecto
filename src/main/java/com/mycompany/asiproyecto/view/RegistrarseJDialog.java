@@ -4,7 +4,6 @@ import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 
 import com.mycompany.asiproyecto.Colores;
-import com.mycompany.asiproyecto.model.*;
 import com.mycompany.asiproyecto.controller.RegistrarseController;
 import java.awt.CardLayout;
 import java.time.LocalDate;
@@ -19,9 +18,9 @@ public class RegistrarseJDialog extends javax.swing.JDialog {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RegistrarseJDialog.class.getName());
     
     //Controlador
-    RegistrarseController rc;
+    private RegistrarseController rc;
     //DatePicker para fecha de nacimiento de alumno
-    DatePicker datePickerA;
+    public DatePicker datePickerA;
     
     public RegistrarseJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -88,44 +87,6 @@ public class RegistrarseJDialog extends javax.swing.JDialog {
                 }
             }
         });
-    }
-
-    //Mover a RegistrarseService
-    public Alumno obtenerAlumnoDeForm() {
-        Alumno a = new Alumno();
-        a.setNombresAlumno(nombresTextFieldA.getText());
-        a.setApellidosAlumno(apellidoTextFieldA.getText());
-        a.setDni(dniTextFieldA.getText());
-        a.setGenero((String)generoComboBoxA.getSelectedItem());
-        a.setFechaNacimiento(datePickerA.getDate());
-        a.setCodigo(codigoTextFieldA.getText());
-        a.setCarrera((String)carreraComboBoxA.getSelectedItem());
-        a.setCurso(cursoTextFieldA.getText());
-        a.setDocenteACargo(docenteCargoTextFieldA.getText());
-        a.setCorreoElectronico(correoTextFieldA.getText());
-        return a;
-    }
-    
-    public Profesor obtenerProfesorDeForm() {
-        Profesor p = new Profesor();
-        p.setNombresProfesor(nombresTextFieldP.getText());
-        p.setApellidosProfesor(apellidoTextFieldP.getText());
-        p.setDni(dniTextFieldP.getText());
-        p.setCorreoInstitucional(correoTextFieldP.getText());
-        p.setCarrera((String)carreraComboBoxP.getSelectedItem());
-        p.setCodigoCurso(codigoCursoTextFieldP.getText());
-        p.setNombreCurso(cursoTextFieldP.getText());
-        return p;
-    }
-    
-    public EmpleadoEmpresa obtenerEmpleadoEmpresaDeForm() {
-        EmpleadoEmpresa e = new EmpleadoEmpresa();
-        e.setNombreCompleto(nombreContactoTextFieldE.getText());
-        e.setNombreEmpresa(nombreEmpresaTextFieldE.getText());
-        e.setCorreoCorporativo(correoCorporativoTextFieldE.getText());
-        e.setTelefono(telefonoTextFieldE.getText());
-        e.setRuc(rucTextFieldE.getText());
-        return e;
     }
     
     /**
@@ -764,8 +725,8 @@ public class RegistrarseJDialog extends javax.swing.JDialog {
     private javax.swing.JButton botonProfesor;
     private javax.swing.JButton botonProfesorSiguiente;
     private javax.swing.JPanel cardHolderPanel;
-    private javax.swing.JComboBox<String> carreraComboBoxA;
-    private javax.swing.JComboBox<String> carreraComboBoxP;
+    public javax.swing.JComboBox<String> carreraComboBoxA;
+    public javax.swing.JComboBox<String> carreraComboBoxP;
     public javax.swing.JTextField codigoCursoTextFieldP;
     public javax.swing.JTextField codigoTextFieldA;
     public javax.swing.JPasswordField contraPasswordFieldA1;
@@ -785,7 +746,7 @@ public class RegistrarseJDialog extends javax.swing.JDialog {
     public javax.swing.JTextField docenteCargoTextFieldA;
     private javax.swing.JPanel empresaPanel;
     private javax.swing.JPanel estudiantePanel;
-    private javax.swing.JComboBox<String> generoComboBoxA;
+    public javax.swing.JComboBox<String> generoComboBoxA;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

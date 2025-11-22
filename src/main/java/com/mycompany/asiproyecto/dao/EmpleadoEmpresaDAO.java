@@ -13,25 +13,32 @@ public class EmpleadoEmpresaDAO {
     public EmpleadoEmpresa obtenerEmpleadoEmpresa(String correoCorporativo, char[] contrasena) {
         EmpleadoEmpresa emp = null;
         
-        // Se asume que la tabla se llama EmpleadoEmpresa y tiene columna contrasena
-        String sql = "SELECT * FROM EmpleadoEmpresa WHERE correoCorporativo = ? AND contrasena = ?";
+        String sql = "SELECT * FROM EmpleadoEmpresa WHERE correoCorporativo = ?";
 
         try (Connection conn = ConnectionPool.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            String hashContrasena = PasswordService.hash(contrasena);
             pstmt.setString(1, correoCorporativo);
-            pstmt.setString(2, hashContrasena);
             
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
-                    emp = new EmpleadoEmpresa();
-                    emp.setIdEmpleado(rs.getInt("idEmpleado"));
-                    emp.setNombreCompleto(rs.getString("nombreCompleto"));
-                    emp.setNombreEmpresa(rs.getString("nombreEmpresa"));
-                    emp.setCorreoCorporativo(rs.getString("correoCorporativo"));
-                    emp.setTelefono(rs.getString("telefono"));
-                    emp.setRuc(rs.getString("ruc"));
+                    String hashGuardado = rs.getString("contrasena");
+                    
+                    if (PasswordService.verify(hashGuardado, contrasena)) {
+                        emp = new EmpleadoEmpresa();
+                        emp.setIdEmpleado(rs.getInt("idEmpleado"));
+                        emp.setNombreCompleto(rs.getString("nombreCompleto"));
+                        emp.setNombreEmpresa(rs.getString("nombreEmpresa"));
+                        emp.setCorreoCorporativo(rs.getString("correoCorporativo"));
+                        emp.setTelefono(rs.getString("telefono"));
+                        emp.setRuc(rs.getString("ruc"));
+                    }
+                    else {
+                        //MENSAJE: CONTRASEÑA INCORRECTA
+                    }
+                }
+                else {
+                    //MENSAJE: CORREO NO REGISTRADO
                 }
             }
         } catch (SQLException e) {

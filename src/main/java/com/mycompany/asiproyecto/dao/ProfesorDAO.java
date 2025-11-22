@@ -13,26 +13,34 @@ public class ProfesorDAO {
     public Profesor obtenerProfesor(String correoInstitucional, char[] contrasena) {
         Profesor prof = null;
 
-        String sql = "SELECT * FROM Profesor WHERE correoInstitucional = ? AND contrasena = ?";
+        String sql = "SELECT * FROM Profesor WHERE correoInstitucional = ?";
 
         try (Connection conn = ConnectionPool.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            String hashContrasena = PasswordService.hash(contrasena);
             pstmt.setString(1, correoInstitucional);
-            pstmt.setString(2, hashContrasena);
 
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
-                    prof = new Profesor();
-                    prof.setIdProfesor(rs.getInt("idProfesor"));
-                    prof.setNombresProfesor(rs.getString("nombresProfesor"));
-                    prof.setApellidosProfesor(rs.getString("apellidosProfesor"));
-                    prof.setDni(rs.getString("dni"));
-                    prof.setCodigoCurso(rs.getString("codigoCurso"));
-                    prof.setNombreCurso(rs.getString("nombreCurso"));
-                    prof.setCarrera(rs.getString("carrera"));
-                    prof.setCorreoInstitucional(rs.getString("correoInstitucional"));
+                    String hashGuardado = rs.getString("contrasena");
+                    
+                    if(PasswordService.verify(hashGuardado, contrasena)) {
+                        prof = new Profesor();
+                        prof.setIdProfesor(rs.getInt("idProfesor"));
+                        prof.setNombresProfesor(rs.getString("nombresProfesor"));
+                        prof.setApellidosProfesor(rs.getString("apellidosProfesor"));
+                        prof.setDni(rs.getString("dni"));
+                        prof.setCodigoCurso(rs.getString("codigoCurso"));
+                        prof.setNombreCurso(rs.getString("nombreCurso"));
+                        prof.setCarrera(rs.getString("carrera"));
+                        prof.setCorreoInstitucional(rs.getString("correoInstitucional"));
+                    }
+                    else {
+                        //MENSAJE: CONTRASEÑA INCORRECTA
+                    }
+                }
+                else {
+                    //MENSAJE: CORREO NO REGISTRADO
                 }
             }
         } catch (SQLException e) {

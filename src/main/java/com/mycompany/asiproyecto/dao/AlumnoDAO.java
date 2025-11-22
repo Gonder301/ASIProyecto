@@ -13,34 +13,42 @@ public class AlumnoDAO {
     public Alumno obtenerAlumno(String correoElectronico, char[] contrasena) {
         Alumno a = null;
         
-        String sql = "SELECT * FROM Alumno WHERE correoElectronico = ? AND contrasena = ?";
+        String sql = "SELECT * FROM Alumno WHERE correoElectronico = ?";
 
         try (Connection conn = ConnectionPool.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             
-            String hashContrasena = PasswordService.hash(contrasena);
             pstmt.setString(1, correoElectronico);
-            pstmt.setString(2, hashContrasena);
             
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
-                    a = new Alumno(); 
-                    a.setIdAlumno(rs.getInt("idAlumno"));
-                    a.setNombresAlumno(rs.getString("nombresAlumno"));
-                    a.setApellidosAlumno(rs.getString("apellidosAlumno"));
-                    a.setDni(rs.getString("dni"));
-                    a.setGenero(rs.getString("genero"));
+                    String hashGuardado = rs.getString("contrasena");
                     
-                    java.sql.Date fechaSql = rs.getDate("fechaNacimiento");
-                    if (fechaSql != null) {
-                        a.setFechaNacimiento(fechaSql.toLocalDate());
+                    if (PasswordService.verify(hashGuardado, contrasena)) {
+                        a = new Alumno(); 
+                        a.setIdAlumno(rs.getInt("idAlumno"));
+                        a.setNombresAlumno(rs.getString("nombresAlumno"));
+                        a.setApellidosAlumno(rs.getString("apellidosAlumno"));
+                        a.setDni(rs.getString("dni"));
+                        a.setGenero(rs.getString("genero"));
+                    
+                        java.sql.Date fechaSql = rs.getDate("fechaNacimiento");
+                        if (fechaSql != null) {
+                            a.setFechaNacimiento(fechaSql.toLocalDate());
+                        }
+                    
+                        a.setCodigo(rs.getString("codigo"));
+                        a.setCarrera(rs.getString("carrera"));
+                        a.setCurso(rs.getString("curso"));
+                        a.setDocenteACargo(rs.getString("docenteACargo"));
+                        a.setCorreoElectronico(rs.getString("correoElectronico"));
                     }
-                    
-                    a.setCodigo(rs.getString("codigo"));
-                    a.setCarrera(rs.getString("carrera"));
-                    a.setCurso(rs.getString("curso"));
-                    a.setDocenteACargo(rs.getString("docenteACargo"));
-                    a.setCorreoElectronico(rs.getString("correoElectronico"));
+                    else {
+                        //MENSAJE: CONTRASEÑA INCORRECTA
+                    }
+                }
+                else {
+                    //MENSAJE: CORREO NO REGISTRADO
                 }
             }
         } catch (SQLException e) {

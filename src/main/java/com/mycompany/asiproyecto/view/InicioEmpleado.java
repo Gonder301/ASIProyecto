@@ -1,6 +1,9 @@
 package com.mycompany.asiproyecto.view;
 
+import com.github.lgooddatepicker.components.DatePicker;
+import com.github.lgooddatepicker.components.DatePickerSettings;
 import com.mycompany.asiproyecto.model.EmpleadoEmpresa;
+import java.time.LocalDate;
 
 public class InicioEmpleado extends javax.swing.JFrame {
     
@@ -12,12 +15,16 @@ public class InicioEmpleado extends javax.swing.JFrame {
     
     private EmpleadoEmpresa empleadoEmpresa;
     
+    public DatePicker datePickerInicio;
+    public DatePicker datePickerFin;
+    
     //Solo se llama en testeo
     public InicioEmpleado() {
         initComponents();
         empleadoEmpresa = new EmpleadoEmpresa();
         empleadoEmpresa.setNombreCompleto("Juan Ruiz");
         nombreLabel.setText(empleadoEmpresa.getNombreCompleto());
+        agregarDatePickersPublicarOFerta();
         setLocationRelativeTo(null);
     }
 
@@ -25,7 +32,24 @@ public class InicioEmpleado extends javax.swing.JFrame {
         initComponents();
         empleadoEmpresa = e;
         nombreLabel.setText(empleadoEmpresa.getNombreCompleto());
+        agregarDatePickersPublicarOFerta();
         setLocationRelativeTo(null);
+    }
+    
+    private void agregarDatePickersPublicarOFerta() {
+        DatePickerSettings dateSettings1 = new DatePickerSettings();
+        dateSettings1.setFormatForDatesCommonEra("dd-MM-yyyy");
+        DatePickerSettings dateSettings2 = new DatePickerSettings();
+        dateSettings2.setFormatForDatesCommonEra("dd-MM-yyyy");
+        datePickerInicio = new DatePicker(dateSettings1);
+        datePickerFin = new DatePicker(dateSettings2);
+        datePickerInicio.setDate(LocalDate.now());
+        datePickerFin.setDate(LocalDate.now());
+        javax.swing.GroupLayout layout = (javax.swing.GroupLayout) informacionOfertaPanel.getLayout();
+        layout.replace(datePickerPlaceholder1, datePickerInicio);
+        layout.replace(datePickerPlaceholder2, datePickerFin);
+        informacionOfertaPanel.revalidate();
+        informacionOfertaPanel.repaint();
     }
     
     /**
