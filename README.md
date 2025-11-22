@@ -1,2 +1,2 @@
 # ASIProyecto
-Proyecto del curso Análisis de Sistemas de Información
+Proyecto del curso Diseño de Sistemas de Información
