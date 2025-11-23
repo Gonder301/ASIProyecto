@@ -74,6 +74,7 @@ public class InicioAlumno extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(143, 0, 0));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel3.setMaximumSize(new java.awt.Dimension(215, 60));
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));

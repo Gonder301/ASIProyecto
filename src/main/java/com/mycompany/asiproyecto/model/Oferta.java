@@ -15,8 +15,8 @@ public class Oferta {
     private String area;
     private String distrito;
     private String beneficios;
-    private LocalDate fechaLimiteRecepcion;
     private String consultas;
+    private int empleadoID;
 
     // Constructor vacío
     public Oferta() {}
@@ -118,19 +118,19 @@ public class Oferta {
         this.beneficios = beneficios;
     }
 
-    public LocalDate getFechaLimiteRecepcion() {
-        return fechaLimiteRecepcion;
-    }
-
-    public void setFechaLimiteRecepcion(LocalDate fechaLimiteRecepcion) {
-        this.fechaLimiteRecepcion = fechaLimiteRecepcion;
-    }
-
     public String getConsultas() {
         return consultas;
     }
 
     public void setConsultas(String consultas) {
         this.consultas = consultas;
+    }
+    
+    public int getEmpleadoID() {
+        return empleadoID;
+    }
+    
+    public void setEmpleadoID(int empleadoID) {
+        this.empleadoID = empleadoID;
     }
 }

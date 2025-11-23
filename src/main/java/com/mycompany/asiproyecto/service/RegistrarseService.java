@@ -260,5 +260,4 @@ public class RegistrarseService {
         
         return camposVacios;
     }
-    
 }

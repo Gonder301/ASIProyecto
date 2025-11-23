@@ -15,7 +15,7 @@ public class InicioEmpleado extends javax.swing.JFrame {
     //Controlador
     private InicioEmpleadoController iec;
     
-    private EmpleadoEmpresa empleadoEmpresa;
+    public EmpleadoEmpresa empleadoEmpresa;
     
     public DatePicker datePickerInicio;
     public DatePicker datePickerFin;
@@ -73,42 +73,43 @@ public class InicioEmpleado extends javax.swing.JFrame {
         informacionOfertaPanel = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        nombreEmpresaTF = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        distritoTF = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        areaTF = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        puestoTF = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         datePickerPlaceholder1 = new javax.swing.JTextField();
         datePickerPlaceholder2 = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        modalidadComboBox = new javax.swing.JComboBox<>();
         jPanel5 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        beneficiosTA = new javax.swing.JTextArea();
         jLabel18 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        requisitosTA = new javax.swing.JTextArea();
         jPanel4 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea3 = new javax.swing.JTextArea();
+        descripcionPerfilTA = new javax.swing.JTextArea();
         jPanel7 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTextArea4 = new javax.swing.JTextArea();
+        habilidadesCompetenciasTA = new javax.swing.JTextArea();
         jPanel8 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTextArea5 = new javax.swing.JTextArea();
-        jButton5 = new javax.swing.JButton();
+        consultasTA = new javax.swing.JTextArea();
+        botonPublicarOferta = new javax.swing.JButton();
+        msgError = new javax.swing.JLabel();
         misOfertasPanel = new javax.swing.JPanel();
         historialPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -170,7 +171,7 @@ public class InicioEmpleado extends javax.swing.JFrame {
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Modalidad");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Presencial", "Virtual", "Híbrido" }));
+        modalidadComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Presencial", "Virtual", "Híbrido" }));
 
         javax.swing.GroupLayout informacionOfertaPanelLayout = new javax.swing.GroupLayout(informacionOfertaPanel);
         informacionOfertaPanel.setLayout(informacionOfertaPanelLayout);
@@ -184,11 +185,11 @@ public class InicioEmpleado extends javax.swing.JFrame {
                             .addComponent(datePickerPlaceholder1)
                             .addGroup(informacionOfertaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(informacionOfertaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(areaTF, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(informacionOfertaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel6)
                                         .addGroup(informacionOfertaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(jTextField1)
+                                            .addComponent(nombreEmpresaTF)
                                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                 .addComponent(jLabel8)
                                 .addComponent(jLabel11)))
@@ -196,15 +197,15 @@ public class InicioEmpleado extends javax.swing.JFrame {
                         .addGroup(informacionOfertaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel10)
                             .addComponent(jLabel9)
-                            .addComponent(jTextField2)
+                            .addComponent(distritoTF)
                             .addComponent(jLabel7)
-                            .addComponent(jTextField4)
+                            .addComponent(puestoTF)
                             .addComponent(datePickerPlaceholder2, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)))
                     .addGroup(informacionOfertaPanelLayout.createSequentialGroup()
                         .addGap(97, 97, 97)
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(modalidadComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         informacionOfertaPanelLayout.setVerticalGroup(
@@ -218,16 +219,16 @@ public class InicioEmpleado extends javax.swing.JFrame {
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(informacionOfertaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nombreEmpresaTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(distritoTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(informacionOfertaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(informacionOfertaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(areaTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(puestoTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(informacionOfertaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
@@ -239,7 +240,7 @@ public class InicioEmpleado extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(informacionOfertaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(modalidadComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
@@ -250,9 +251,9 @@ public class InicioEmpleado extends javax.swing.JFrame {
         jLabel13.setForeground(new java.awt.Color(143, 0, 0));
         jLabel13.setText("Beneficios");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(4);
-        jScrollPane1.setViewportView(jTextArea1);
+        beneficiosTA.setColumns(20);
+        beneficiosTA.setRows(4);
+        jScrollPane1.setViewportView(beneficiosTA);
 
         jLabel18.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(153, 153, 153));
@@ -295,9 +296,9 @@ public class InicioEmpleado extends javax.swing.JFrame {
         jLabel19.setForeground(new java.awt.Color(153, 153, 153));
         jLabel19.setText("Ingresar uno por cada linea");
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(4);
-        jScrollPane2.setViewportView(jTextArea2);
+        requisitosTA.setColumns(20);
+        requisitosTA.setRows(4);
+        jScrollPane2.setViewportView(requisitosTA);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -334,10 +335,10 @@ public class InicioEmpleado extends javax.swing.JFrame {
         jLabel16.setForeground(new java.awt.Color(143, 0, 0));
         jLabel16.setText("Descripción del perfil requerido");
 
-        jTextArea3.setColumns(20);
-        jTextArea3.setLineWrap(true);
-        jTextArea3.setRows(3);
-        jScrollPane3.setViewportView(jTextArea3);
+        descripcionPerfilTA.setColumns(20);
+        descripcionPerfilTA.setLineWrap(true);
+        descripcionPerfilTA.setRows(3);
+        jScrollPane3.setViewportView(descripcionPerfilTA);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -369,10 +370,9 @@ public class InicioEmpleado extends javax.swing.JFrame {
         jLabel17.setForeground(new java.awt.Color(143, 0, 0));
         jLabel17.setText("Habilidades y competencias necesarias");
 
-        jTextArea4.setColumns(20);
-        jTextArea4.setLineWrap(true);
-        jTextArea4.setRows(3);
-        jScrollPane4.setViewportView(jTextArea4);
+        habilidadesCompetenciasTA.setColumns(20);
+        habilidadesCompetenciasTA.setRows(3);
+        jScrollPane4.setViewportView(habilidadesCompetenciasTA);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -405,10 +405,10 @@ public class InicioEmpleado extends javax.swing.JFrame {
         jLabel15.setForeground(new java.awt.Color(143, 0, 0));
         jLabel15.setText("Consultas");
 
-        jTextArea5.setColumns(20);
-        jTextArea5.setLineWrap(true);
-        jTextArea5.setRows(4);
-        jScrollPane5.setViewportView(jTextArea5);
+        consultasTA.setColumns(20);
+        consultasTA.setLineWrap(true);
+        consultasTA.setRows(4);
+        jScrollPane5.setViewportView(consultasTA);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -434,10 +434,15 @@ public class InicioEmpleado extends javax.swing.JFrame {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        jButton5.setBackground(new java.awt.Color(255, 128, 0));
-        jButton5.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("Publicar oferta");
+        botonPublicarOferta.setBackground(new java.awt.Color(255, 128, 0));
+        botonPublicarOferta.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        botonPublicarOferta.setForeground(new java.awt.Color(255, 255, 255));
+        botonPublicarOferta.setText("Publicar oferta");
+        botonPublicarOferta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonPublicarOfertaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout publicarPanelLayout = new javax.swing.GroupLayout(publicarPanel);
         publicarPanel.setLayout(publicarPanelLayout);
@@ -459,7 +464,10 @@ public class InicioEmpleado extends javax.swing.JFrame {
                             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(botonPublicarOferta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(publicarPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(msgError)))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
         publicarPanelLayout.setVerticalGroup(
@@ -482,8 +490,10 @@ public class InicioEmpleado extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31)
-                        .addComponent(jButton5)))
-                .addContainerGap(29, Short.MAX_VALUE))
+                        .addComponent(botonPublicarOferta)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(msgError)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         cardHolderPanel.add(publicarPanel, "publicarCard");
@@ -537,6 +547,7 @@ public class InicioEmpleado extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(143, 0, 0));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel3.setMaximumSize(new java.awt.Dimension(215, 60));
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -679,6 +690,10 @@ public class InicioEmpleado extends javax.swing.JFrame {
         iec.cambiarCard("historialCard", this);
     }//GEN-LAST:event_botonHistorialActionPerformed
 
+    private void botonPublicarOfertaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPublicarOfertaActionPerformed
+        iec.procesarPublicarOferta(this);
+    }//GEN-LAST:event_botonPublicarOfertaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -705,17 +720,22 @@ public class InicioEmpleado extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JTextField areaTF;
+    public javax.swing.JTextArea beneficiosTA;
     public javax.swing.JButton botonHistorial;
     public javax.swing.JButton botonMisOfertas;
     public javax.swing.JButton botonPublicar;
+    private javax.swing.JButton botonPublicarOferta;
     public javax.swing.JPanel cardHolderPanel;
+    public javax.swing.JTextArea consultasTA;
     private javax.swing.JTextField datePickerPlaceholder1;
     private javax.swing.JTextField datePickerPlaceholder2;
+    public javax.swing.JTextArea descripcionPerfilTA;
+    public javax.swing.JTextField distritoTF;
+    public javax.swing.JTextArea habilidadesCompetenciasTA;
     private javax.swing.JPanel historialPanel;
     private javax.swing.JPanel informacionOfertaPanel;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -748,17 +768,13 @@ public class InicioEmpleado extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextArea jTextArea3;
-    private javax.swing.JTextArea jTextArea4;
-    private javax.swing.JTextArea jTextArea5;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JPanel misOfertasPanel;
+    public javax.swing.JComboBox<String> modalidadComboBox;
+    public javax.swing.JLabel msgError;
+    public javax.swing.JTextField nombreEmpresaTF;
     private javax.swing.JLabel nombreLabel;
     private javax.swing.JPanel publicarPanel;
+    public javax.swing.JTextField puestoTF;
+    public javax.swing.JTextArea requisitosTA;
     // End of variables declaration//GEN-END:variables
 }

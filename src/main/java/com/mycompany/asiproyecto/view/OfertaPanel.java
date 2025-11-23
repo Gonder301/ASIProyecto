@@ -54,17 +54,6 @@ public class OfertaPanel extends JPanel {
         lblModalidad.setFont(new Font("SansSerif", Font.PLAIN, 12));
         lblModalidad.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        // Fecha límite
-        JLabel lblFechaLimite = new JLabel();
-        if (oferta.getFechaLimiteRecepcion() != null) {
-            lblFechaLimite.setText("Fecha límite: " + oferta.getFechaLimiteRecepcion().format(dateFormatter));
-        } else {
-            lblFechaLimite.setText("Fecha límite: No especificada");
-        }
-        lblFechaLimite.setFont(new Font("SansSerif", Font.BOLD, 12));
-        lblFechaLimite.setForeground(Color.RED);
-        lblFechaLimite.setAlignmentX(Component.LEFT_ALIGNMENT);
-
         // Botón para más detalles
         JButton btnVerMas = new JButton("Ver más detalles");
         btnVerMas.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -85,7 +74,6 @@ public class OfertaPanel extends JPanel {
         contentPanel.add(Box.createVerticalStrut(3));
         contentPanel.add(lblModalidad);
         contentPanel.add(verticalStrut2);
-        contentPanel.add(lblFechaLimite);
         contentPanel.add(Box.createVerticalStrut(10));
         contentPanel.add(btnVerMas);
 
@@ -122,9 +110,6 @@ public class OfertaPanel extends JPanel {
         }
         if (oferta.getFechaFin() != null) {
             detalles.append("FECHA FIN: ").append(oferta.getFechaFin().format(dateFormatter)).append("\n");
-        }
-        if (oferta.getFechaLimiteRecepcion() != null) {
-            detalles.append("FECHA LÍMITE: ").append(oferta.getFechaLimiteRecepcion().format(dateFormatter)).append("\n");
         }
         
         detalles.append("\nBENEFICIOS:\n").append(oferta.getBeneficios()).append("\n\n");

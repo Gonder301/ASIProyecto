@@ -2,7 +2,6 @@ package com.mycompany.asiproyecto.dao;
 
 import com.mycompany.asiproyecto.db.ConnectionPool;
 import com.mycompany.asiproyecto.model.Oferta;
-import com.mycompany.asiproyecto.model.Oferta;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +17,7 @@ public class OfertaDAO {
         List<Oferta> lista = new ArrayList<>();
         String sql = "SELECT idoferta, nombreempresa, descripcionperfil, puestopractica, " +
                     "requisitos, fechainicio, fechafin, modalidad, habilidadescompetencias, " +
-                    "area, distrito, beneficios, fechalimiterecepcion, consultas " +
+                    "area, distrito, beneficios, consultas, empleadoid " +
                     "FROM Oferta";
 
         try (Connection conn = ConnectionPool.getConnection();
@@ -39,9 +38,8 @@ public class OfertaDAO {
                     o.setArea(rs.getString("area"));
                     o.setDistrito(rs.getString("distrito"));
                     o.setBeneficios(rs.getString("beneficios"));
-                    o.setFechaLimiteRecepcion(rs.getObject("fechalimiterecepcion", LocalDate.class));
                     o.setConsultas(rs.getString("consultas"));
-                    
+                    o.setEmpleadoID(rs.getInt("empleadoid"));
                     lista.add(o);
                 }
             } 
@@ -52,8 +50,42 @@ public class OfertaDAO {
         return lista;
     }
 
-    public boolean crearOferta(Oferta c) {
-        System.out.println("xd");
-        return false;
+    public boolean registrarOferta(Oferta o) {
+        boolean registrado = false;
+        
+        String sql = "INSERT INTO Oferta (nombreempresa, descripcionperfil"
+                + ", puestopractica, requisitos, fechainicio, fechafin, modalidad"
+                + ", habilidadescompetencias, area, distrito, beneficios"
+                + ", consultas, empleadoid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        
+        try (Connection conn = ConnectionPool.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, o.getNombreEmpresa());
+            pstmt.setString(2, o.getDescriptionPerfil());
+            pstmt.setString(3, o.getPuestoPractica());
+            pstmt.setString(4, o.getRequisitos());
+            pstmt.setDate(5, java.sql.Date.valueOf(o.getFechaInicio()));
+            pstmt.setDate(6, java.sql.Date.valueOf(o.getFechaFin()));
+            pstmt.setString(7, o.getModalidad());
+            pstmt.setString(8, o.getHabilidadesCompetencias());
+            pstmt.setString(9, o.getArea());
+            pstmt.setString(10, o.getDistrito());
+            pstmt.setString(11, o.getBeneficios());
+            pstmt.setString(12, o.getConsultas());
+            pstmt.setInt(13, o.getEmpleadoID());
+
+            int filasAfectadas = pstmt.executeUpdate();
+            
+            if (filasAfectadas > 0) {
+                registrado = true;
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al registrar profesor: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return registrado;
     }
 }
