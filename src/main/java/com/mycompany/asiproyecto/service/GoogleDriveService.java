@@ -21,7 +21,8 @@ public class GoogleDriveService {
 
     public static Drive getDriveService() throws Exception {
         InputStream in = GoogleDriveService.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
-        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(GsonFactory.getDefaultInstance(), new InputStreamReader(in));
+        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(GsonFactory.getDefaultInstance(),
+                new InputStreamReader(in));
 
         FileDataStoreFactory dataStoreFactory = new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH));
 
@@ -42,5 +43,30 @@ public class GoogleDriveService {
                 credential)
                 .setApplicationName("JobApp")
                 .build();
+    }
+
+    public static String uploadFile(java.io.File file, String remoteFileName, String mimeType) throws Exception {
+        Drive service = getDriveService();
+
+        com.google.api.services.drive.model.File fileMetadata = new com.google.api.services.drive.model.File();
+        fileMetadata.setName(remoteFileName);
+        // fileMetadata.setParents(Collections.singletonList("folderId")); // Optional:
+        // if we want a specific folder
+
+        com.google.api.client.http.FileContent mediaContent = new com.google.api.client.http.FileContent(mimeType,
+                file);
+
+        com.google.api.services.drive.model.File fileUpload = service.files().create(fileMetadata, mediaContent)
+                .setFields("id, webViewLink")
+                .execute();
+
+        // Make it readable to anyone with the link (optional, but often needed for
+        // recruitment viewing)
+        // Permission newPermission = new Permission();
+        // newPermission.setType("anyone");
+        // newPermission.setRole("reader");
+        // service.permissions().create(fileUpload.getId(), newPermission).execute();
+
+        return fileUpload.getWebViewLink();
     }
 }
