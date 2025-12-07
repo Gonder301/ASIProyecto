@@ -56,4 +56,43 @@ public class PostulacionDAO {
         }
         return lista;
     }
+
+    public boolean registrarPostulacion(Postulacion p) {
+        boolean registrado = false;
+        String sql = "INSERT INTO Postulacion (idalumno, idoferta, fechapostulacion, requisitolink, estado) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = ConnectionPool.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, p.getIdAlumno());
+            pstmt.setInt(2, p.getIdOferta());
+            pstmt.setDate(3, java.sql.Date.valueOf(p.getFechaPostulacion()));
+            pstmt.setString(4, p.getRequisitoLink());
+            pstmt.setString(5, p.getEstado());
+            int rows = pstmt.executeUpdate();
+            if (rows > 0)
+                registrado = true;
+        } catch (SQLException e) {
+            System.err.println("Error al registrar postulacion: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return registrado;
+    }
+
+    public boolean existePostulacion(int idAlumno, int idOferta) {
+        boolean existe = false;
+        String sql = "SELECT COUNT(*) FROM Postulacion WHERE idalumno = ? AND idoferta = ?";
+        try (Connection conn = ConnectionPool.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, idAlumno);
+            pstmt.setInt(2, idOferta);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    existe = rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al verificar postulacion: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return existe;
+    }
 }

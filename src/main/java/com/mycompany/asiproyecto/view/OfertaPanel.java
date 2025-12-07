@@ -12,6 +12,7 @@ public class OfertaPanel extends JPanel {
     private JButton btnVer;
     private JButton btnEditar;
     private JButton btnEliminar;
+    private JButton btnPostular;
 
     public OfertaPanel(Oferta oferta) {
         this(oferta, false);
@@ -97,11 +98,23 @@ public class OfertaPanel extends JPanel {
 
             contentPanel.add(buttonPanel);
         } else {
+            JPanel buttonPanel = new JPanel(new GridLayout(1, 2, 5, 0));
+            buttonPanel.setBackground(Color.WHITE);
+            buttonPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+            buttonPanel.setMaximumSize(new Dimension(350, 30));
+
             // Botón para más detalles (Comportamiento original)
             JButton btnVerMas = new JButton("Ver más detalles");
-            btnVerMas.setAlignmentX(Component.LEFT_ALIGNMENT);
             btnVerMas.addActionListener(e -> mostrarDetalles());
-            contentPanel.add(btnVerMas);
+            buttonPanel.add(btnVerMas);
+
+            btnPostular = new JButton("Postular");
+            btnPostular.setBackground(new Color(0, 100, 200));
+            btnPostular.setForeground(Color.WHITE);
+            btnPostular.setVisible(false); // Hidden by default
+            buttonPanel.add(btnPostular);
+
+            contentPanel.add(buttonPanel);
         }
 
         add(contentPanel, BorderLayout.CENTER);
@@ -110,6 +123,27 @@ public class OfertaPanel extends JPanel {
     public void addEliminarListener(java.awt.event.ActionListener l) {
         if (btnEliminar != null) {
             btnEliminar.addActionListener(l);
+        }
+    }
+
+    public void setPostularVisible(boolean visible) {
+        if (btnPostular != null) {
+            btnPostular.setVisible(visible);
+        }
+    }
+
+    public void setPostularEnabled(boolean enabled) {
+        if (btnPostular != null) {
+            btnPostular.setEnabled(enabled);
+            if (!enabled) {
+                btnPostular.setText("Postulado");
+            }
+        }
+    }
+
+    public void addPostularListener(java.awt.event.ActionListener l) {
+        if (btnPostular != null) {
+            btnPostular.addActionListener(l);
         }
     }
 
