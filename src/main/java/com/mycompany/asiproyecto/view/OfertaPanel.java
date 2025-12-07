@@ -1,5 +1,6 @@
 package com.mycompany.asiproyecto.view;
 
+import com.mycompany.asiproyecto.Colores;
 import com.mycompany.asiproyecto.model.Oferta;
 import javax.swing.*;
 import java.awt.*;
@@ -136,6 +137,7 @@ public class OfertaPanel extends JPanel {
         if (btnPostular != null) {
             btnPostular.setEnabled(enabled);
             if (!enabled) {
+                btnPostular.setBackground(Colores.BACKGROUND_RED);
                 btnPostular.setText("Postulado");
             }
         }
@@ -171,7 +173,7 @@ public class OfertaPanel extends JPanel {
         StringBuilder detalles = new StringBuilder();
         detalles.append("EMPRESA: ").append(oferta.getNombreEmpresa()).append("\n\n");
         detalles.append("PUESTO: ").append(oferta.getPuestoPractica()).append("\n\n");
-        detalles.append("DESCRIPCIÓN:\n").append(oferta.getDescriptionPerfil()).append("\n\n");
+        detalles.append("DESCRIPCIÓN:\n").append(oferta.getDescripcionPerfil()).append("\n\n");
         detalles.append("REQUISITOS:\n").append(oferta.getRequisitos()).append("\n\n");
         detalles.append("HABILIDADES:\n").append(oferta.getHabilidadesCompetencias()).append("\n\n");
         detalles.append("ÁREA: ").append(oferta.getArea()).append("\n");

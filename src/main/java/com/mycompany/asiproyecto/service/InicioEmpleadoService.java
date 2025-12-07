@@ -4,16 +4,41 @@ import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 import com.mycompany.asiproyecto.Colores;
 import com.mycompany.asiproyecto.dao.OfertaDAO;
+import com.mycompany.asiproyecto.dao.PostulacionDAO;
 import com.mycompany.asiproyecto.model.Oferta;
+import com.mycompany.asiproyecto.model.Postulacion;
 import com.mycompany.asiproyecto.view.InicioEmpleado;
 import com.mycompany.asiproyecto.view.OfertaPanel;
 import java.time.LocalDate;
+import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 import javax.swing.JTextArea;
 
 public class InicioEmpleadoService {
+    
+    public static void cargarMisPostulaciones(InicioEmpleado vista) {
+        PostulacionDAO postulacionDAO = new PostulacionDAO();
+        vista.todasLasPostulaciones = postulacionDAO.obtenerPostulacionPorEmpleado(vista.empleadoEmpresa.getIdEmpleado());
+        actualizarTablaPostulaciones(vista.todasLasPostulaciones, vista);
+    }
+    
+    public static void actualizarTablaPostulaciones(List<Postulacion> postulaciones, InicioEmpleado vista) {
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) vista.jTable1.getModel();
+        model.setRowCount(0); // Limpiar tabla
+
+        for (Postulacion p : postulaciones) {
+            Object[] row = new Object[6];
+            row[0] = p.getNombreAlumno();
+            row[1] = p.getPuestoPractica();
+            row[2] = p.getFechaPostulacion().toString();
+            row[3] = p.getEstado();
+            row[4] = "Ver CV/Portafolio";
+            row[5] = "Acciones";
+            model.addRow(row);
+        }
+    }
     
     public static void cargarMisOfertas(InicioEmpleado vista) {
         OfertaDAO ofertaDAO = new OfertaDAO();
@@ -86,7 +111,7 @@ public class InicioEmpleadoService {
     public static Oferta obtenerOfertaDeForm(InicioEmpleado vista) {
         Oferta oferta = new Oferta();
         oferta.setNombreEmpresa(vista.nombreEmpresaTF.getText());
-        oferta.setDescriptionPerfil(formatearTextArea(vista.descripcionPerfilTA));
+        oferta.setDescripcionPerfil(formatearTextArea(vista.descripcionPerfilTA));
         oferta.setPuestoPractica((String)vista.puestoComboBox.getSelectedItem());
         oferta.setRequisitos(formatearTextArea(vista.requisitosTA));
         oferta.setFechaInicio(vista.datePickerInicio.getDate());

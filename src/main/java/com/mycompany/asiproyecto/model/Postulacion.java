@@ -14,6 +14,7 @@ public class Postulacion {
     // Campos para visualización
     private String nombreAlumno;
     private String puestoPractica;
+    private Oferta oferta;
 
     // Constructor vacío
     public Postulacion() {
@@ -91,5 +92,13 @@ public class Postulacion {
 
     public void setPuestoPractica(String puestoPractica) {
         this.puestoPractica = puestoPractica;
+    }
+
+    public Oferta getOferta() {
+        return oferta;
+    }
+
+    public void setOferta(Oferta oferta) {
+        this.oferta = oferta;
     }
 }

@@ -3,8 +3,6 @@ package com.mycompany.asiproyecto.view;
 import com.mycompany.asiproyecto.controller.InicioEmpleadoController;
 import com.github.lgooddatepicker.components.DatePicker;
 import com.mycompany.asiproyecto.model.EmpleadoEmpresa;
-import com.mycompany.asiproyecto.dao.OfertaDAO;
-import com.mycompany.asiproyecto.dao.PostulacionDAO;
 import com.mycompany.asiproyecto.model.Oferta;
 import com.mycompany.asiproyecto.model.Postulacion;
 import com.mycompany.asiproyecto.service.InicioEmpleadoService;
@@ -32,7 +30,7 @@ public class InicioEmpleado extends javax.swing.JFrame {
     // Cache de ofertas
     public List<Oferta> todasLasOfertas;
     // Cache de postulaciones
-    private List<Postulacion> todasLasPostulaciones;
+    public List<Postulacion> todasLasPostulaciones;
 
     // Solo se llama en testeo
     public InicioEmpleado() {
@@ -43,7 +41,7 @@ public class InicioEmpleado extends javax.swing.JFrame {
         nombreLabel.setText(empleadoEmpresa.getNombreCompleto());
         InicioEmpleadoService.agregarDatePickers(this);
         InicioEmpleadoService.cargarMisOfertas(this);
-        cargarMisPostulaciones();
+        InicioEmpleadoService.cargarMisPostulaciones(this);
         configurarTabla();
         setLocationRelativeTo(null);
     }
@@ -55,31 +53,9 @@ public class InicioEmpleado extends javax.swing.JFrame {
         nombreLabel.setText(empleadoEmpresa.getNombreCompleto());
         InicioEmpleadoService.agregarDatePickers(this);
         InicioEmpleadoService.cargarMisOfertas(this);
-        cargarMisPostulaciones();
+        InicioEmpleadoService.cargarMisPostulaciones(this);
         configurarTabla();
         setLocationRelativeTo(null);
-    }
-
-    private void cargarMisPostulaciones() {
-        PostulacionDAO postulacionDAO = new PostulacionDAO();
-        todasLasPostulaciones = postulacionDAO.obtenerPostulacionPorEmpleado(empleadoEmpresa.getIdEmpleado());
-        actualizarTablaPostulaciones(todasLasPostulaciones);
-    }
-
-    private void actualizarTablaPostulaciones(List<Postulacion> postulaciones) {
-        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0); // Limpiar tabla
-
-        for (Postulacion p : postulaciones) {
-            Object[] row = new Object[6];
-            row[0] = p.getNombreAlumno();
-            row[1] = p.getPuestoPractica();
-            row[2] = p.getFechaPostulacion().toString();
-            row[3] = p.getEstado();
-            row[4] = "Ver CV/Portafolio";
-            row[5] = "Acciones";
-            model.addRow(row);
-        }
     }
 
     /**
@@ -1007,7 +983,7 @@ public class InicioEmpleado extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JTable jTable1;
+    public javax.swing.JTable jTable1;
     private javax.swing.JPanel misOfertasPanel;
     public javax.swing.JComboBox<String> modalidadComboBox;
     public javax.swing.JComboBox<String> modalidadComboBox1;

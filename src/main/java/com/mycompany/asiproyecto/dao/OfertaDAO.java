@@ -28,7 +28,7 @@ public class OfertaDAO {
 
                 o.setIdOferta(rs.getInt("idoferta"));
                 o.setNombreEmpresa(rs.getString("nombreempresa"));
-                o.setDescriptionPerfil(rs.getString("descripcionperfil"));
+                o.setDescripcionPerfil(rs.getString("descripcionperfil"));
                 o.setPuestoPractica(rs.getString("puestopractica"));
                 o.setRequisitos(rs.getString("requisitos"));
                 o.setFechaInicio(rs.getObject("fechainicio", LocalDate.class));
@@ -61,7 +61,7 @@ public class OfertaDAO {
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, o.getNombreEmpresa());
-            pstmt.setString(2, o.getDescriptionPerfil());
+            pstmt.setString(2, o.getDescripcionPerfil());
             pstmt.setString(3, o.getPuestoPractica());
             pstmt.setString(4, o.getRequisitos());
             pstmt.setDate(5, java.sql.Date.valueOf(o.getFechaInicio()));
@@ -105,7 +105,7 @@ public class OfertaDAO {
 
                     o.setIdOferta(rs.getInt("idoferta"));
                     o.setNombreEmpresa(rs.getString("nombreempresa"));
-                    o.setDescriptionPerfil(rs.getString("descripcionperfil"));
+                    o.setDescripcionPerfil(rs.getString("descripcionperfil"));
                     o.setPuestoPractica(rs.getString("puestopractica"));
                     o.setRequisitos(rs.getString("requisitos"));
                     o.setFechaInicio(rs.getObject("fechainicio", LocalDate.class));

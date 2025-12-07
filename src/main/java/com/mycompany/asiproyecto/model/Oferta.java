@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class Oferta {
     private int idOferta;
     private String nombreEmpresa;
-    private String descriptionPerfil;
+    private String descripcionPerfil;
     private String puestoPractica;
     private String requisitos;
     private LocalDate fechaInicio;
@@ -38,12 +38,12 @@ public class Oferta {
         this.nombreEmpresa = nombreEmpresa;
     }
 
-    public String getDescriptionPerfil() {
-        return descriptionPerfil;
+    public String getDescripcionPerfil() {
+        return descripcionPerfil;
     }
 
-    public void setDescriptionPerfil(String descriptionPerfil) {
-        this.descriptionPerfil = descriptionPerfil;
+    public void setDescripcionPerfil(String descripcionPerfil) {
+        this.descripcionPerfil = descripcionPerfil;
     }
 
     public String getPuestoPractica() {
