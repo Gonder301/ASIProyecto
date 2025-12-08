@@ -22,14 +22,14 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class InicioAlumnoService {
-    
-    public static void cargarTodasLasOfertas (InicioAlumno vista) {
+
+    public static void cargarTodasLasOfertas(InicioAlumno vista) {
         OfertaDAO ofertaDAO = new OfertaDAO();
         vista.todasLasOfertas = ofertaDAO.obtenerTodasLasOfertas();
         actualizarPanelOfertas(vista.todasLasOfertas, vista);
     }
-    
-    public static void actualizarPanelOfertas (List<Oferta> ofertasParaMostrar, InicioAlumno vista) {
+
+    public static void actualizarPanelOfertas(List<Oferta> ofertasParaMostrar, InicioAlumno vista) {
         if (vista.panelMisOfertas == null)
             return; // Safety check
         vista.panelMisOfertas.removeAll();
@@ -142,6 +142,8 @@ public class InicioAlumnoService {
                                                 .showMessageDialog(vista,
                                                         "Te has postulado correctamente. Archivo subido.");
                                         op.setPostularEnabled(false);
+                                        // Update Cache
+                                        cargarMisPostulaciones(vista);
                                     } else {
                                         throw new Exception(
                                                 "Error al registrar en base de datos.");
@@ -178,15 +180,15 @@ public class InicioAlumnoService {
         vista.panelMisOfertas.revalidate();
         vista.panelMisOfertas.repaint();
     }
-    
+
     public static void llenarMiInfo(InicioAlumno vista) {
-        //Académica
+        // Académica
         vista.labelNombreCompleto.setText(vista.alumno.getNombresAlumno() + ", " + vista.alumno.getApellidosAlumno());
         vista.labelCodigo.setText(vista.alumno.getCodigo());
         vista.labelCurso.setText(vista.alumno.getCurso());
         vista.labelEP.setText(vista.alumno.getCarrera());
         vista.labelProfesorAsignado.setText(vista.alumno.getDocenteACargo());
-        //Personal
+        // Personal
         vista.labelNombres.setText(vista.alumno.getNombresAlumno());
         vista.labelApellidos.setText(vista.alumno.getApellidosAlumno());
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -194,5 +196,17 @@ public class InicioAlumnoService {
         vista.labelDni.setText(vista.alumno.getDni());
         vista.labelGenero.setText(vista.alumno.getGenero());
         vista.labelCorreo.setText(vista.alumno.getCorreoElectronico());
+    }
+
+    public static void cargarMisPostulaciones(InicioAlumno vista) {
+        PostulacionDAO postulacionDAO = new PostulacionDAO();
+        vista.todasLasPostulaciones = postulacionDAO.obtenerPostulacionesPorAlumno(vista.alumno.getIdAlumno());
+        vista.actualizarPanelPostulaciones();
+        vista.cargarMisContratos();
+    }
+
+    // Helper method called from constructor to initial load
+    public static void agregarPanelPostulaciones(InicioAlumno vista) {
+        cargarMisPostulaciones(vista);
     }
 }
