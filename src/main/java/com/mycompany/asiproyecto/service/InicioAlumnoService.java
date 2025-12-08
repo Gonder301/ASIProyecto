@@ -1,5 +1,6 @@
 package com.mycompany.asiproyecto.service;
 
+import com.mycompany.asiproyecto.Colores;
 import com.mycompany.asiproyecto.dao.OfertaDAO;
 import com.mycompany.asiproyecto.dao.PostulacionDAO;
 import com.mycompany.asiproyecto.model.Oferta;
@@ -7,6 +8,7 @@ import com.mycompany.asiproyecto.model.Postulacion;
 import com.mycompany.asiproyecto.view.InicioAlumno;
 import com.mycompany.asiproyecto.view.OfertaPanel;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.io.File;
 import java.time.LocalDate;
@@ -23,12 +25,182 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class InicioAlumnoService {
 
+    public static void cargarMisContratos(InicioAlumno vista) {
+        if (vista.misContratosScrollPane == null)
+            return;
+
+        JPanel container = new JPanel(new java.awt.GridLayout(0, 1, 10, 10));
+        container.setBackground(new java.awt.Color(240, 240, 240));
+
+        // Usar cache
+        if (vista.todasLasPostulaciones != null) {
+            for (Postulacion p : vista.todasLasPostulaciones) {
+                if ("Aceptado".equalsIgnoreCase(p.getEstado())) {
+                    // Create logic wrapper panel
+                    JPanel rowPanel = new JPanel(new BorderLayout(10, 10));
+                    rowPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+                    rowPanel.setBackground(java.awt.Color.WHITE);
+
+                    // Oferta Panel
+                    OfertaPanel op = new OfertaPanel(p.getOferta(), false);
+                    op.setPostularVisible(false);
+
+                    // Action Panel (Adjuntar Button)
+                    JPanel actionPanel = new JPanel(new java.awt.GridLayout(1, 1));
+                    actionPanel.setPreferredSize(new Dimension(150, 40));
+                    actionPanel.setOpaque(false);
+
+                    // Center the button vertically if needed, or just fill
+                    // Using a flow layout within the grid cell or just adding directly can work.
+                    // Let's make it look nice.
+
+                    JButton btnAdjuntar = new JButton("Adjuntar");
+                    btnAdjuntar.setBackground(new java.awt.Color(0, 51, 255));
+                    btnAdjuntar.setForeground(java.awt.Color.WHITE);
+                    btnAdjuntar.setFont(new java.awt.Font("SansSerif", 1, 14));
+                    btnAdjuntar.setFocusPainted(false);
+
+                    // Logic for button is not specified, so no action listener for now.
+
+                    // Container for the button to center it or give it margins?
+                    // The prompt says "Al lado de cada panel", so BorderLayout.EAST is good.
+                    // Let's put it directly in the East position, maybe wrapped for size control.
+
+                    JPanel buttonWrapper = new JPanel(new java.awt.GridBagLayout());
+                    buttonWrapper.setOpaque(false);
+                    buttonWrapper.setPreferredSize(new Dimension(150, 0));
+
+                    java.awt.GridBagConstraints gbc = new java.awt.GridBagConstraints();
+                    gbc.gridx = 0;
+                    gbc.gridy = 0;
+                    gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
+                    gbc.weightx = 1.0;
+                    gbc.insets = new java.awt.Insets(0, 5, 0, 5);
+
+                    buttonWrapper.add(btnAdjuntar, gbc);
+
+                    rowPanel.add(op, BorderLayout.CENTER);
+                    rowPanel.add(buttonWrapper, BorderLayout.EAST);
+
+                    container.add(rowPanel);
+                }
+            }
+        }
+
+        vista.misContratosScrollPane.setViewportView(container);
+        vista.misContratosScrollPane.revalidate();
+        vista.misContratosScrollPane.repaint();
+    }
+    
     public static void cargarTodasLasOfertas(InicioAlumno vista) {
         OfertaDAO ofertaDAO = new OfertaDAO();
         vista.todasLasOfertas = ofertaDAO.obtenerTodasLasOfertas();
         actualizarPanelOfertas(vista.todasLasOfertas, vista);
     }
 
+    public static void actualizarPanelPostulaciones(InicioAlumno vista) {
+        if (vista.misPostulacionesScrollPane == null)
+            return;
+
+        JPanel container = new JPanel(new java.awt.GridLayout(0, 1, 10, 10));
+        container.setBackground(new java.awt.Color(240, 240, 240));
+
+        PostulacionDAO postulacionDAO = new PostulacionDAO();
+        // Usamos la cache en lugar de consultar DAO directamente
+        if (vista.todasLasPostulaciones != null) {
+            for (Postulacion p : vista.todasLasPostulaciones) {
+                // Create logic wrapper panel
+                JPanel rowPanel = new JPanel(new BorderLayout(10, 10));
+                rowPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+                rowPanel.setBackground(java.awt.Color.WHITE);
+
+                // Oferta Panel
+                OfertaPanel op = new OfertaPanel(p.getOferta(), false);
+                // Override default buttons in OfertaPanel if needed or just use it as display
+                op.setPostularVisible(false); // We don't want to apply again
+
+                // Status and Action Panel
+                JPanel actionPanel = new JPanel(new java.awt.GridLayout(2, 1, 5, 5));
+                actionPanel.setPreferredSize(new Dimension(150, 0));
+                actionPanel.setOpaque(false);
+
+                // Status Button (Visual Only)
+                JButton btnEstado = new JButton(p.getEstado());
+                btnEstado.setFocusPainted(false);
+                btnEstado.setFont(new java.awt.Font("SansSerif", 1, 12));
+                // Color logic
+                if ("Pendiente".equalsIgnoreCase(p.getEstado())) {
+                    btnEstado.setBackground(Colores.BUTTON_YELLOW);
+                    btnEstado.setForeground(java.awt.Color.BLACK);
+                } else if ("Aceptado".equalsIgnoreCase(p.getEstado())) {
+                    btnEstado.setBackground(java.awt.Color.GREEN);
+                    btnEstado.setForeground(java.awt.Color.BLACK);
+                } else if ("Rechazado".equalsIgnoreCase(p.getEstado())) {
+                    btnEstado.setBackground(java.awt.Color.RED);
+                    btnEstado.setForeground(java.awt.Color.WHITE);
+                }
+
+                // Disable button but keep color using UI override
+                btnEstado.setEnabled(false);
+                btnEstado.setUI(new javax.swing.plaf.metal.MetalButtonUI() {
+                    protected java.awt.Color getDisabledTextColor() {
+                        return btnEstado.getForeground();
+                    }
+                });
+
+                // Delete Button
+                JButton btnEliminar = new JButton("Eliminar");
+                btnEliminar.setBackground(Colores.BACKGROUND_RED);
+                btnEliminar.setForeground(java.awt.Color.BLACK);
+                btnEliminar.addActionListener(e -> {
+                    int confirm = javax.swing.JOptionPane.showConfirmDialog(vista,
+                            "¿Estás seguro de eliminar esta postulación?\nSe eliminará tu CV y el registro.",
+                            "Confirmar Eliminación",
+                            javax.swing.JOptionPane.YES_NO_OPTION);
+
+                    if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+                        try {
+                            // 1. Delete from Drive
+                            // Filename convention: Postulacion_{idAlumno}_{idOferta}.pdf
+                            String fileName = "Postulacion_" + p.getIdAlumno() + "_" + p.getIdOferta() + ".pdf";
+                            GoogleDriveService.deleteFileByName(fileName);
+
+                            // 2. Delete from DB
+                            if (postulacionDAO.eliminarPostulacion(p.getIdAlumno(), p.getIdOferta())) {
+                                javax.swing.JOptionPane.showMessageDialog(vista, "Postulación eliminada correctamente.");
+                                InicioAlumnoService.cargarMisPostulaciones(vista); // Recargar cache
+                                InicioAlumnoService.cargarTodasLasOfertas(vista); // Refresh Main offers too
+                            } else {
+                                javax.swing.JOptionPane.showMessageDialog(vista,
+                                        "Error al eliminar de la base de datos.");
+                            }
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                            javax.swing.JOptionPane.showMessageDialog(vista, "Error al eliminar: " + ex.getMessage());
+                        }
+                    }
+                });
+
+                actionPanel.add(btnEstado);
+                actionPanel.add(btnEliminar);
+
+                // Desabilita el botón eliminar si la postulación no está en estado pendiente
+                if (!"Pendiente".equalsIgnoreCase(p.getEstado())) {
+                    btnEliminar.setBackground(java.awt.Color.GRAY);
+                    btnEliminar.setEnabled(false);
+                }
+                rowPanel.add(op, BorderLayout.CENTER);
+                rowPanel.add(actionPanel, BorderLayout.EAST);
+
+                container.add(rowPanel);
+            }
+        }
+
+        vista.misPostulacionesScrollPane.setViewportView(container);
+        vista.misPostulacionesScrollPane.revalidate();
+        vista.misPostulacionesScrollPane.repaint();
+    }
+    
     public static void actualizarPanelOfertas(List<Oferta> ofertasParaMostrar, InicioAlumno vista) {
         if (vista.panelMisOfertas == null)
             return; // Safety check
@@ -91,7 +263,7 @@ public class InicioAlumnoService {
                         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
                         JButton btnCancel = new JButton("Cancelar");
                         JButton btnConfirm = new JButton("SI");
-                        btnConfirm.setEnabled(false); // Disabled until file selected
+                        btnConfirm.setEnabled(false); // Deshabilitar hasta que el archivo se seleccione
 
                         buttonPanel.add(btnCancel);
                         buttonPanel.add(btnConfirm);
@@ -223,8 +395,8 @@ public class InicioAlumnoService {
     public static void cargarMisPostulaciones(InicioAlumno vista) {
         PostulacionDAO postulacionDAO = new PostulacionDAO();
         vista.todasLasPostulaciones = postulacionDAO.obtenerPostulacionesPorAlumno(vista.alumno.getIdAlumno());
-        vista.actualizarPanelPostulaciones();
-        vista.cargarMisContratos();
+        actualizarPanelPostulaciones(vista);
+        cargarMisContratos(vista);
     }
 
     // Helper method called from constructor to initial load

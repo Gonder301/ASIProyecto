@@ -1,20 +1,12 @@
 package com.mycompany.asiproyecto.view;
 
-import com.mycompany.asiproyecto.Colores;
 import com.mycompany.asiproyecto.controller.InicioAlumnoController;
 import com.mycompany.asiproyecto.service.InicioAlumnoService;
-import com.mycompany.asiproyecto.dao.PostulacionDAO;
 import com.mycompany.asiproyecto.model.Oferta;
 import com.mycompany.asiproyecto.model.Postulacion;
 import com.mycompany.asiproyecto.model.Alumno;
 import java.time.LocalDate;
 import java.util.List;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.border.EmptyBorder;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import com.mycompany.asiproyecto.service.GoogleDriveService;
 
 public class InicioAlumno extends javax.swing.JFrame {
 
@@ -53,177 +45,7 @@ public class InicioAlumno extends javax.swing.JFrame {
         InicioAlumnoService.llenarMiInfo(this);
         InicioAlumnoService.cargarTodasLasOfertas(this);
         InicioAlumnoService.cargarMisPostulaciones(this);
-        cargarMisContratos();
-    }
-
-    public void actualizarPanelPostulaciones() {
-        if (misPostulacionesScrollPane == null)
-            return;
-
-        JPanel container = new JPanel(new java.awt.GridLayout(0, 1, 10, 10));
-        container.setBackground(new java.awt.Color(240, 240, 240));
-
-        PostulacionDAO postulacionDAO = new PostulacionDAO();
-        // Usamos la cache en lugar de consultar DAO directamente
-        if (this.todasLasPostulaciones != null) {
-            for (Postulacion p : this.todasLasPostulaciones) {
-                // Create logic wrapper panel
-                JPanel rowPanel = new JPanel(new BorderLayout(10, 10));
-                rowPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-                rowPanel.setBackground(java.awt.Color.WHITE);
-
-                // Oferta Panel
-                OfertaPanel op = new OfertaPanel(p.getOferta(), false);
-                // Override default buttons in OfertaPanel if needed or just use it as display
-                op.setPostularVisible(false); // We don't want to apply again
-
-                // Status and Action Panel
-                JPanel actionPanel = new JPanel(new java.awt.GridLayout(2, 1, 5, 5));
-                actionPanel.setPreferredSize(new Dimension(150, 0));
-                actionPanel.setOpaque(false);
-
-                // Status Button (Visual Only)
-                JButton btnEstado = new JButton(p.getEstado());
-                btnEstado.setFocusPainted(false);
-                btnEstado.setFont(new java.awt.Font("SansSerif", 1, 12));
-                // Color logic
-                if ("Pendiente".equalsIgnoreCase(p.getEstado())) {
-                    btnEstado.setBackground(Colores.BUTTON_YELLOW);
-                    btnEstado.setForeground(java.awt.Color.BLACK);
-                } else if ("Aceptado".equalsIgnoreCase(p.getEstado())) {
-                    btnEstado.setBackground(java.awt.Color.GREEN);
-                    btnEstado.setForeground(java.awt.Color.BLACK);
-                } else if ("Rechazado".equalsIgnoreCase(p.getEstado())) {
-                    btnEstado.setBackground(java.awt.Color.RED);
-                    btnEstado.setForeground(java.awt.Color.WHITE);
-                }
-
-                // Disable button but keep color using UI override
-                btnEstado.setEnabled(false);
-                btnEstado.setUI(new javax.swing.plaf.metal.MetalButtonUI() {
-                    protected java.awt.Color getDisabledTextColor() {
-                        return btnEstado.getForeground();
-                    }
-                });
-
-                // Delete Button
-                JButton btnEliminar = new JButton("Eliminar");
-                btnEliminar.setBackground(Colores.BACKGROUND_RED);
-                btnEliminar.setForeground(java.awt.Color.BLACK);
-                btnEliminar.addActionListener(e -> {
-                    int confirm = javax.swing.JOptionPane.showConfirmDialog(this,
-                            "¿Estás seguro de eliminar esta postulación?\nSe eliminará tu CV y el registro.",
-                            "Confirmar Eliminación",
-                            javax.swing.JOptionPane.YES_NO_OPTION);
-
-                    if (confirm == javax.swing.JOptionPane.YES_OPTION) {
-                        try {
-                            // 1. Delete from Drive
-                            // Filename convention: Postulacion_{idAlumno}_{idOferta}.pdf
-                            String fileName = "Postulacion_" + p.getIdAlumno() + "_" + p.getIdOferta() + ".pdf";
-                            GoogleDriveService.deleteFileByName(fileName);
-
-                            // 2. Delete from DB
-                            if (postulacionDAO.eliminarPostulacion(p.getIdAlumno(), p.getIdOferta())) {
-                                javax.swing.JOptionPane.showMessageDialog(this, "Postulación eliminada correctamente.");
-                                InicioAlumnoService.cargarMisPostulaciones(this); // Recargar cache
-                                InicioAlumnoService.cargarTodasLasOfertas(this); // Refresh Main offers too
-                            } else {
-                                javax.swing.JOptionPane.showMessageDialog(this,
-                                        "Error al eliminar de la base de datos.");
-                            }
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                            javax.swing.JOptionPane.showMessageDialog(this, "Error al eliminar: " + ex.getMessage());
-                        }
-                    }
-                });
-
-                actionPanel.add(btnEstado);
-                actionPanel.add(btnEliminar);
-
-                // Desabilita el botón eliminar si la postulación no está en estado pendiente
-                if (!"Pendiente".equalsIgnoreCase(p.getEstado())) {
-                    btnEliminar.setBackground(java.awt.Color.GRAY);
-                    btnEliminar.setEnabled(false);
-                }
-                rowPanel.add(op, BorderLayout.CENTER);
-                rowPanel.add(actionPanel, BorderLayout.EAST);
-
-                container.add(rowPanel);
-            }
-        }
-
-        misPostulacionesScrollPane.setViewportView(container);
-        misPostulacionesScrollPane.revalidate();
-        misPostulacionesScrollPane.repaint();
-    }
-
-    public void cargarMisContratos() {
-        if (misContratosScrollPane == null)
-            return;
-
-        JPanel container = new JPanel(new java.awt.GridLayout(0, 1, 10, 10));
-        container.setBackground(new java.awt.Color(240, 240, 240));
-
-        // Use cache
-        if (this.todasLasPostulaciones != null) {
-            for (Postulacion p : this.todasLasPostulaciones) {
-                if ("Aceptado".equalsIgnoreCase(p.getEstado())) {
-                    // Create logic wrapper panel
-                    JPanel rowPanel = new JPanel(new BorderLayout(10, 10));
-                    rowPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-                    rowPanel.setBackground(java.awt.Color.WHITE);
-
-                    // Oferta Panel
-                    OfertaPanel op = new OfertaPanel(p.getOferta(), false);
-                    op.setPostularVisible(false);
-
-                    // Action Panel (Adjuntar Button)
-                    JPanel actionPanel = new JPanel(new java.awt.GridLayout(1, 1));
-                    actionPanel.setPreferredSize(new Dimension(150, 40));
-                    actionPanel.setOpaque(false);
-
-                    // Center the button vertically if needed, or just fill
-                    // Using a flow layout within the grid cell or just adding directly can work.
-                    // Let's make it look nice.
-
-                    JButton btnAdjuntar = new JButton("Adjuntar");
-                    btnAdjuntar.setBackground(new java.awt.Color(0, 51, 255));
-                    btnAdjuntar.setForeground(java.awt.Color.WHITE);
-                    btnAdjuntar.setFont(new java.awt.Font("SansSerif", 1, 14));
-                    btnAdjuntar.setFocusPainted(false);
-
-                    // Logic for button is not specified, so no action listener for now.
-
-                    // Container for the button to center it or give it margins?
-                    // The prompt says "Al lado de cada panel", so BorderLayout.EAST is good.
-                    // Let's put it directly in the East position, maybe wrapped for size control.
-
-                    JPanel buttonWrapper = new JPanel(new java.awt.GridBagLayout());
-                    buttonWrapper.setOpaque(false);
-                    buttonWrapper.setPreferredSize(new Dimension(150, 0));
-
-                    java.awt.GridBagConstraints gbc = new java.awt.GridBagConstraints();
-                    gbc.gridx = 0;
-                    gbc.gridy = 0;
-                    gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
-                    gbc.weightx = 1.0;
-                    gbc.insets = new java.awt.Insets(0, 5, 0, 5);
-
-                    buttonWrapper.add(btnAdjuntar, gbc);
-
-                    rowPanel.add(op, BorderLayout.CENTER);
-                    rowPanel.add(buttonWrapper, BorderLayout.EAST);
-
-                    container.add(rowPanel);
-                }
-            }
-        }
-
-        misContratosScrollPane.setViewportView(container);
-        misContratosScrollPane.revalidate();
-        misContratosScrollPane.repaint();
+        InicioAlumnoService.cargarMisContratos(this);
     }
 
     @SuppressWarnings("unchecked")
@@ -792,7 +614,7 @@ public class InicioAlumno extends javax.swing.JFrame {
             .addGroup(misInformesPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel38)
-                .addContainerGap(534, Short.MAX_VALUE))
+                .addContainerGap(536, Short.MAX_VALUE))
         );
 
         cardHolderPanel.add(misInformesPanel, "misInformesCard");
@@ -979,7 +801,7 @@ public class InicioAlumno extends javax.swing.JFrame {
 
     private void botonMisPostulacionesActionPerformed(java.awt.event.ActionEvent evt) {
         iac.cambiarCard("misPostulacionesCard", this);
-        actualizarPanelPostulaciones();
+        InicioAlumnoService.actualizarPanelPostulaciones(this);
     }
 
     private void botonOfertasPracticasActionPerformed(java.awt.event.ActionEvent evt) {
@@ -1092,7 +914,7 @@ public class InicioAlumno extends javax.swing.JFrame {
     public javax.swing.JLabel labelProfesorAsignado;
     private javax.swing.JPanel miInformacionPanel;
     private javax.swing.JPanel misContratosPanel;
-    private javax.swing.JScrollPane misContratosScrollPane;
+    public javax.swing.JScrollPane misContratosScrollPane;
     private javax.swing.JPanel misInformesPanel;
     private javax.swing.JPanel misPostulacionesPanel;
     public javax.swing.JScrollPane misPostulacionesScrollPane;
