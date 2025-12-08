@@ -171,6 +171,7 @@ public class InicioAlumnoService {
         }
 
         JScrollPane scroll = new JScrollPane(container);
+        scroll.getVerticalScrollBar().setUnitIncrement(20);
         scroll.setPreferredSize(new java.awt.Dimension(0, 0));
         vista.panelMisOfertas.add(scroll, java.awt.BorderLayout.CENTER);
         if (vista.jLabel24 != null) {
