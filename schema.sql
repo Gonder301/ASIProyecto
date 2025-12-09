@@ -30,12 +30,14 @@ CREATE TABLE IF NOT EXISTS `Alumno` (
   `codigo` varchar(50) DEFAULT NULL,
   `carrera` varchar(255) DEFAULT NULL,
   `curso` varchar(255) DEFAULT NULL,
-  `docenteACargo` varchar(255) DEFAULT NULL,
+  `id_profesor_a_cargo` int(11) DEFAULT NULL,
   `correoElectronico` varchar(255) NOT NULL,
   `contrasena` varchar(255) NOT NULL,
   PRIMARY KEY (`idAlumno`),
   UNIQUE KEY `dni` (`dni`),
-  UNIQUE KEY `correoElectronico` (`correoElectronico`)
+  UNIQUE KEY `correoElectronico` (`correoElectronico`),
+  KEY `FK_Alumno_Profesor` (`id_profesor_a_cargo`) USING BTREE,
+  CONSTRAINT `FK_Alumno_Profesor` FOREIGN KEY (`id_profesor_a_cargo`) REFERENCES `Profesor` (`idProfesor`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Data exporting was unselected.
@@ -54,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `Contrato` (
   KEY `idOferta` (`idOferta`) USING BTREE,
   CONSTRAINT `Contrato_ibfk_1` FOREIGN KEY (`idAlumno`) REFERENCES `Alumno` (`idAlumno`),
   CONSTRAINT `FK_Contrato_Oferta` FOREIGN KEY (`idOferta`) REFERENCES `Oferta` (`idOferta`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Data exporting was unselected.
 
@@ -121,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `Postulacion` (
   KEY `idOferta` (`idOferta`),
   CONSTRAINT `Postulacion_ibfk_1` FOREIGN KEY (`idAlumno`) REFERENCES `Alumno` (`idAlumno`),
   CONSTRAINT `Postulacion_ibfk_2` FOREIGN KEY (`idOferta`) REFERENCES `Oferta` (`idOferta`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Data exporting was unselected.
 
