@@ -191,4 +191,23 @@ public class ContratoDAO {
             return false;
         }
     }
+    
+    public boolean eliminar(int idAlumno, int idOferta) {
+        String sql = "DELETE FROM Contrato WHERE idalumno = ? AND idoferta = ?";
+
+        try (Connection conn = ConnectionPool.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, idAlumno);
+            pstmt.setInt(2, idOferta);
+            
+            int rows = pstmt.executeUpdate();
+            return rows > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error al eliminar contrato: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

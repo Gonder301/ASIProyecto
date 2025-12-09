@@ -14,6 +14,7 @@ import com.mycompany.asiproyecto.view.InicioAlumno;
 import com.mycompany.asiproyecto.view.OfertaPanel;
 import com.mycompany.asiproyecto.view.MisContratosJDialog;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.io.File;
@@ -165,17 +166,17 @@ public class InicioAlumnoService {
 
                     if (confirm == javax.swing.JOptionPane.YES_OPTION) {
                         try {
-                            // 1. Delete from Drive
+                            // 1. Eliminar de Drive
                             // Filename convention: Postulacion_{idAlumno}_{idOferta}.pdf
                             String fileName = "Postulacion_" + p.getIdAlumno() + "_" + p.getIdOferta() + ".pdf";
                             GoogleDriveService.deleteFileByName(fileName);
 
-                            // 2. Delete from DB
+                            // 2. Eliminar de DB
                             if (postulacionDAO.eliminarPostulacion(p.getIdAlumno(), p.getIdOferta())) {
                                 javax.swing.JOptionPane.showMessageDialog(vista,
                                         "Postulación eliminada correctamente.");
                                 InicioAlumnoService.cargarMisPostulaciones(vista); // Recargar cache
-                                InicioAlumnoService.cargarTodasLasOfertas(vista); // Refresh Main offers too
+                                InicioAlumnoService.cargarTodasLasOfertas(vista); // Recargar oferta
                             } else {
                                 javax.swing.JOptionPane.showMessageDialog(vista,
                                         "Error al eliminar de la base de datos.");
@@ -425,11 +426,14 @@ public class InicioAlumnoService {
     public static void actualizarDialogSegunExistenciaContrato (MisContratosJDialog vista) {
         vista.contrato = buscarContrato(vista);
         if (vista.contrato != null) { //El contrato ya se encuentra registrado en la BD.
+            vista.contratoRegistrado = true;
             vista.datePickerInicio.setDate(vista.contrato.getFechaInicio());
             vista.datePickerInicio.setEnabled(false);
             vista.datePickerFin.setDate(vista.contrato.getFechaFin());
             vista.datePickerFin.setEnabled(false);
             vista.btnSelectFile.setEnabled(false);
+            vista.lblFileName.setForeground(Color.BLUE);
+            vista.lblFileName.setText("Ver Contrato");
             vista.btnEnviar.setEnabled(false);
             vista.btnAnular.setEnabled(true);
             
@@ -447,16 +451,26 @@ public class InicioAlumnoService {
             }
         }
         else {//El contrato no está registrado en la BD.
+            vista.contratoRegistrado = false;
+            //Se crea un nuevo contrato con idAlumno e idOferta
+            vista.contrato = new Contrato();
+            vista.contrato.setIdAlumno(vista.idAlumno);
+            vista.contrato.setIdOferta(vista.idOferta);
+            
             vista.datePickerInicio.setDate(LocalDate.now());
             vista.datePickerInicio.setEnabled(true);
             vista.datePickerFin.setDate(LocalDate.now());
             vista.datePickerFin.setEnabled(true);
             vista.btnSelectFile.setEnabled(true);
+            vista.selectedFile[0] = null;
+            vista.lblFileName.setForeground(Color.BLACK);
+            vista.lblFileName.setText("Ningún archivo seleccionado");
             //se activa cuando se añade el archivo
             vista.btnEnviar.setEnabled(false);
             
             vista.btnAnular.setEnabled(false);
             
+            vista.labelEstado.setForeground(Color.WHITE);
             vista.labelEstado.setText("No registrado");
         }
     }

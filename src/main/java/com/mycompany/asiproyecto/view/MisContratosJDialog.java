@@ -5,7 +5,9 @@ import com.github.lgooddatepicker.components.DatePicker;
 import com.mycompany.asiproyecto.Colores;
 import com.mycompany.asiproyecto.controller.InicioAlumnoController;
 import com.mycompany.asiproyecto.model.Contrato;
+import java.awt.Desktop;
 import java.io.File;
+import java.net.URI;
 
 public class MisContratosJDialog extends javax.swing.JDialog {
 
@@ -22,6 +24,7 @@ public class MisContratosJDialog extends javax.swing.JDialog {
     public DatePicker datePickerInicio;
     public DatePicker datePickerFin;
     public File[] selectedFile;
+    public boolean contratoRegistrado;
     
     public MisContratosJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -105,6 +108,11 @@ public class MisContratosJDialog extends javax.swing.JDialog {
         lblFileName.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         lblFileName.setForeground(new java.awt.Color(0, 0, 0));
         lblFileName.setText("Ningún archivo seleccionado");
+        lblFileName.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblFileNameMouseClicked(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 255));
 
@@ -199,14 +207,13 @@ public class MisContratosJDialog extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnSelectFile)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(19, 19, 19)
-                                        .addComponent(btnEnviar)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnAnular))
-                                    .addComponent(lblFileName))))))
+                                .addGap(25, 25, 25)
+                                .addComponent(btnEnviar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnAnular))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblFileName)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -254,8 +261,21 @@ public class MisContratosJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnEnviarActionPerformed
 
     private void btnAnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularActionPerformed
-        // TODO add your handling code here:
+        iac.botonAnularPresionado(this);
     }//GEN-LAST:event_btnAnularActionPerformed
+
+    private void lblFileNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFileNameMouseClicked
+        if (contratoRegistrado) {
+            try {
+                Desktop.getDesktop().browse(new URI(contrato.getDocumentoContrato()));
+            } catch (Exception ex) {
+                logger.log(java.util.logging.Level.SEVERE, null, ex);
+                javax.swing.JOptionPane.showMessageDialog(
+                        MisContratosJDialog.this, "Error al abrir el link: " + ex.getMessage());
+            }
+            
+        }
+    }//GEN-LAST:event_lblFileNameMouseClicked
 
     /**
      * @param args the command line arguments

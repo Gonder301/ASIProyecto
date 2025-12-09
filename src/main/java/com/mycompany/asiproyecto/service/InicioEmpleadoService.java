@@ -36,7 +36,7 @@ public class InicioEmpleadoService {
             row[2] = p.getFechaPostulacion().toString();
             row[3] = p.getEstado();
             row[4] = "Ver CV/Portafolio";
-            row[5] = "Evaluar"; // Changed from "Acciones" to "Evaluar" to match requirement
+            row[5] = "Evaluar";
             model.addRow(row);
         }
     }
