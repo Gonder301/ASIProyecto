@@ -11,4 +11,5 @@ public class Colores {
     public static final Color BUTTON_BLUE = new Color(0, 51, 255);
     public static final Color BUTTON_WHITE = new Color(242, 242, 242);
     public static final Color BACKGROUND_RED = new Color(143, 0, 0);
+    public static final Color BACKGROUND_RED_OPAQUE = new Color(255, 51, 51);
 }

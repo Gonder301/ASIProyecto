@@ -1,10 +1,14 @@
 package com.mycompany.asiproyecto.service;
 
+import com.github.lgooddatepicker.components.DatePicker;
+import com.github.lgooddatepicker.components.DatePickerSettings;
 import com.mycompany.asiproyecto.Colores;
 import com.mycompany.asiproyecto.dao.OfertaDAO;
 import com.mycompany.asiproyecto.dao.PostulacionDAO;
+import com.mycompany.asiproyecto.dao.ContratoDAO;
 import com.mycompany.asiproyecto.model.Oferta;
 import com.mycompany.asiproyecto.model.Postulacion;
+import com.mycompany.asiproyecto.model.Contrato;
 import com.mycompany.asiproyecto.view.InicioAlumno;
 import com.mycompany.asiproyecto.view.OfertaPanel;
 import com.mycompany.asiproyecto.view.MisContratosJDialog;
@@ -400,7 +404,45 @@ public class InicioAlumnoService {
         cargarMisContratos(vista);
     }
 
+    public static Contrato buscarContrato (MisContratosJDialog vista) {
+        ContratoDAO contratoDAO = new ContratoDAO();
+        Contrato contrato = null;
+        contrato = contratoDAO.obtenerPorIdAlumnoIdOferta(vista.contratoBase.getIdAlumno(), vista.contratoBase.getIdOferta());
+        return contrato;
+    }
+    
+    //inicializar en lugar de actualizar?
+    public static void actualizarDialogSegunExistenciaContrato (MisContratosJDialog vista) {
+        Contrato c = buscarContrato(vista);
+        if (c != null) { //El contrato ya se encuentra registrado en la base de datos
+            vista.contratoBase = c;
+            vista.btnSelectFile.setEnabled(false);
+            vista.btnEnviar.setEnabled(false);
+            vista.labelEstado.setText(vista.contratoBase.getEstadoContrato());
+        }
+        else {
+            vista.btnAnular.setEnabled(false);
+        }
+    }
+    
     public static void agregarPanelPostulaciones(InicioAlumno vista) {
         cargarMisPostulaciones(vista);
+    }
+    
+    public static void agregarDatePickers (MisContratosJDialog vista) {
+        DatePickerSettings dateSettings1 = new DatePickerSettings();
+        dateSettings1.setFormatForDatesCommonEra("dd-MM-yyyy");
+        DatePickerSettings dateSettings2 = new DatePickerSettings();
+        dateSettings2.setFormatForDatesCommonEra("dd-MM-yyyy");
+        vista.datePickerInicio = new DatePicker(dateSettings1);
+        vista.datePickerFin = new DatePicker(dateSettings2);
+        vista.datePickerInicio.setDate(LocalDate.now());
+        vista.datePickerFin.setDate(LocalDate.now());
+        java.awt.Container contentPane = vista.getContentPane();
+        javax.swing.GroupLayout layout = (javax.swing.GroupLayout) contentPane.getLayout();
+        layout.replace(vista.datePickerPlaceholder1, vista.datePickerInicio);
+        layout.replace(vista.datePickerPlaceholder2, vista.datePickerFin);
+        vista.revalidate();
+        vista.repaint();
     }
 }

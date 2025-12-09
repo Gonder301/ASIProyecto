@@ -1,12 +1,26 @@
 package com.mycompany.asiproyecto.view;
 
+import com.mycompany.asiproyecto.service.InicioAlumnoService;
+import com.github.lgooddatepicker.components.DatePicker;
+import com.mycompany.asiproyecto.Colores;
+import com.mycompany.asiproyecto.controller.InicioAlumnoController;
 import com.mycompany.asiproyecto.model.Contrato;
+import java.io.File;
 
 public class MisContratosJDialog extends javax.swing.JDialog {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger
             .getLogger(MisContratosJDialog.class.getName());
 
+    
+    //Controller
+    private InicioAlumnoController iac;
+    public Contrato contratoBase;
+    public String nombreDocente;
+    public DatePicker datePickerInicio;
+    public DatePicker datePickerFin;
+    public File[] selectedFile;
+    
     public MisContratosJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -16,12 +30,16 @@ public class MisContratosJDialog extends javax.swing.JDialog {
     public MisContratosJDialog(java.awt.Frame parent, boolean modal, int idAlumno, int idOferta) {
         super(parent, modal);
         initComponents();
-        Contrato contrato = new Contrato();
-        contrato.setIdAlumno(idAlumno);
-        contrato.setIdOferta(idOferta);
-        jLabel2.setText("ID de Alumno: " + Integer.toString(idAlumno));
-        jLabel1.setText("ID de Oferta: " + Integer.toString(idOferta));
+        getContentPane().setBackground(Colores.BUTTON_YELLOW);
         setLocationRelativeTo(parent);
+        InicioAlumnoService.agregarDatePickers(this);
+        selectedFile = new File[]{ null };
+        iac = new InicioAlumnoController();
+        contratoBase = new Contrato();
+        contratoBase.setIdAlumno(idAlumno);
+        contratoBase.setIdOferta(idOferta);
+        
+        InicioAlumnoService.actualizarDialogSegunExistenciaContrato(this);
     }
 
     /**
@@ -36,36 +54,206 @@ public class MisContratosJDialog extends javax.swing.JDialog {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        datePickerPlaceholder1 = new javax.swing.JTextField();
+        datePickerPlaceholder2 = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        btnSelectFile = new javax.swing.JButton();
+        lblFileName = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        labelNombreDocente = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        labelEstado = new javax.swing.JLabel();
+        btnEnviar = new javax.swing.JButton();
+        btnAnular = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("ID de oferta: ---");
+        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("Detalles de contrato");
 
-        jLabel2.setText("ID de alumno: ---");
+        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("Fecha de inicio");
+
+        jLabel3.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Fecha de Fin");
+
+        datePickerPlaceholder1.setText("jTextField1");
+        datePickerPlaceholder1.setPreferredSize(new java.awt.Dimension(68, 26));
+
+        datePickerPlaceholder2.setText("jTextField1");
+        datePickerPlaceholder2.setPreferredSize(new java.awt.Dimension(68, 26));
+
+        jLabel4.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setText("Tu contrato");
+
+        btnSelectFile.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        btnSelectFile.setText("Subir contrato");
+        btnSelectFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelectFileActionPerformed(evt);
+            }
+        });
+
+        lblFileName.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        lblFileName.setForeground(new java.awt.Color(0, 0, 0));
+        lblFileName.setText("Ningún archivo seleccionado");
+
+        jPanel1.setBackground(new java.awt.Color(0, 153, 255));
+
+        jLabel5.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setText("Docente:");
+
+        labelNombreDocente.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        labelNombreDocente.setForeground(new java.awt.Color(0, 0, 0));
+        labelNombreDocente.setText("---");
+
+        jLabel7.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setText("Estado:");
+
+        labelEstado.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        labelEstado.setForeground(new java.awt.Color(0, 0, 0));
+        labelEstado.setText("---");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(labelNombreDocente)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelEstado)))
+                .addContainerGap(167, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelNombreDocente)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(labelEstado))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        btnEnviar.setBackground(new java.awt.Color(255, 128, 0));
+        btnEnviar.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        btnEnviar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEnviar.setText("ENVIAR");
+        btnEnviar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviarActionPerformed(evt);
+            }
+        });
+
+        btnAnular.setBackground(new java.awt.Color(255, 51, 51));
+        btnAnular.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        btnAnular.setForeground(new java.awt.Color(255, 255, 255));
+        btnAnular.setText("ANULAR");
+        btnAnular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnularActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(151, 151, 151)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addContainerGap(157, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(datePickerPlaceholder1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(datePickerPlaceholder2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(80, 80, 80)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel4))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnSelectFile)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(19, 19, 19)
+                                        .addComponent(btnEnviar)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnAnular))
+                                    .addComponent(lblFileName))))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addContainerGap(230, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(datePickerPlaceholder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(datePickerPlaceholder2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSelectFile)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblFileName)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnEnviar)
+                            .addComponent(btnAnular))
+                        .addGap(0, 12, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSelectFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectFileActionPerformed
+        iac.seleccionarFileContrato(this);
+    }//GEN-LAST:event_btnSelectFileActionPerformed
+
+    private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
+        iac.botonEnviarPresionado(this);
+    }//GEN-LAST:event_btnEnviarActionPerformed
+
+    private void btnAnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAnularActionPerformed
 
     /**
      * @param args the command line arguments
@@ -109,7 +297,20 @@ public class MisContratosJDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton btnAnular;
+    public javax.swing.JButton btnEnviar;
+    public javax.swing.JButton btnSelectFile;
+    public javax.swing.JTextField datePickerPlaceholder1;
+    public javax.swing.JTextField datePickerPlaceholder2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
+    public javax.swing.JLabel labelEstado;
+    public javax.swing.JLabel labelNombreDocente;
+    public javax.swing.JLabel lblFileName;
     // End of variables declaration//GEN-END:variables
 }

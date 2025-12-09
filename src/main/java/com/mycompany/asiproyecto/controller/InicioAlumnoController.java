@@ -3,11 +3,18 @@ package com.mycompany.asiproyecto.controller;
 import com.mycompany.asiproyecto.Colores;
 import com.mycompany.asiproyecto.view.InicioAlumno;
 import com.mycompany.asiproyecto.model.Oferta;
+import com.mycompany.asiproyecto.model.Contrato;
+import com.mycompany.asiproyecto.dao.ContratoDAO;
+import com.mycompany.asiproyecto.service.GoogleDriveService;
 import com.mycompany.asiproyecto.view.Index;
 import com.mycompany.asiproyecto.service.InicioAlumnoService;
+import com.mycompany.asiproyecto.view.MisContratosJDialog;
 import java.awt.CardLayout;
+import java.io.File;
 import java.util.stream.Collectors;
 import java.util.List;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class InicioAlumnoController {
     
@@ -74,6 +81,63 @@ public class InicioAlumnoController {
                 vista.botonMisContratos.setBackground(Colores.BUTTON_BLUE);
                 vista.botonMisInformes.setBackground(Colores.BUTTON_YELLOW);
                 break;
+        }
+    }
+    
+    public void seleccionarFileContrato(MisContratosJDialog vista) {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileFilter(new FileNameExtensionFilter("PDF Documents", "pdf"));
+        int result = fileChooser.showOpenDialog(vista);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File f = fileChooser.getSelectedFile();
+            if (f.getName().toLowerCase().endsWith(".pdf")) {
+                vista.selectedFile[0] = f;
+                vista.lblFileName.setText(f.getName());
+                vista.btnEnviar.setEnabled(true);
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(vista, "Por favor selecciona un archivo PDF válido.");
+            }
+        }
+    }
+    
+    public void botonEnviarPresionado(MisContratosJDialog vista) {
+        if (vista.selectedFile[0] != null) {
+            try {
+                vista.btnEnviar.setEnabled(false);
+                vista.btnSelectFile.setEnabled(false);
+                vista.lblFileName.setText("Subiendo archivo...");
+                
+                Contrato c = new Contrato();
+                c.setIdAlumno(vista.contratoBase.getIdAlumno());
+                c.setIdOferta(vista.contratoBase.getIdOferta());
+                c.setFechaInicio(vista.datePickerInicio.getDate());
+                c.setFechaFin(vista.datePickerFin.getDate());
+                c.setEstadoContrato("Pendiente");
+                
+                // Upload to Drive
+                String remoteName = "Contrato_"
+                    + c.getIdAlumno() + "_"
+                    + c.getIdOferta() + ".pdf";
+                String link = GoogleDriveService.uploadFile(
+                    vista.selectedFile[0], remoteName,
+                    "application/pdf");
+                
+                c.setDocumentoContrato(link);
+
+                ContratoDAO contratoDAO = new ContratoDAO();
+                
+                if (contratoDAO.registrar(c)) {
+                    javax.swing.JOptionPane.showMessageDialog(vista, "Contrato enviado correctamente.");
+                    vista.lblFileName.setText("Contrato enviado.");
+                } else {
+                    throw new Exception("Error al registrar contrato en base de datos.");
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                vista.btnEnviar.setEnabled(true);
+                vista.btnSelectFile.setEnabled(true);
+                vista.lblFileName.setText(vista.selectedFile[0].getName());
+            }
         }
     }
 }

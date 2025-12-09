@@ -38,6 +38,38 @@ public class ContratoDAO {
         return lista;
     }
 
+    public Contrato obtenerPorIdAlumnoIdOferta(int idAlumno, int idOferta) {
+        Contrato c = null;
+        String sql = "SELECT idContrato, idAlumno, idOferta, fechaInicio, fechaFin, "
+                + "estadoContrato, documentoContrato FROM Contrato "
+                + "WHERE idalumno = ? AND idoferta = ?";
+        
+        try (Connection conn = ConnectionPool.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setInt(1, idAlumno);
+            pstmt.setInt(2, idOferta);
+            
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    c = new Contrato();
+                    c.setIdContrato(rs.getInt("idContrato"));
+                    c.setIdAlumno(rs.getInt("idAlumno"));
+                    c.setIdOferta(rs.getInt("idOferta"));
+                    c.setFechaInicio(rs.getObject("fechaInicio", LocalDate.class));
+                    c.setFechaFin(rs.getObject("fechaFin", LocalDate.class));
+                    c.setEstadoContrato(rs.getString("estadoContrato"));
+                    c.setDocumentoContrato(rs.getString("documentoContrato"));
+                }
+            }
+            
+        } catch (SQLException e) {
+            System.err.println("Error al obtener contrato por idAlumno y idOferta: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return c;
+    }
+    
     public Contrato obtenerPorId(int id) {
         Contrato c = null;
         String sql = "SELECT idContrato, idAlumno, idOferta, fechaInicio, fechaFin, estadoContrato, documentoContrato FROM Contrato WHERE idContrato = ?";
@@ -65,7 +97,7 @@ public class ContratoDAO {
         }
         return c;
     }
-
+    
     public List<Contrato> obtenerPorAlumno(int idAlumno) {
         List<Contrato> lista = new ArrayList<>();
         String sql = "SELECT idContrato, idAlumno, idOferta, fechaInicio, fechaFin, estadoContrato, documentoContrato FROM Contrato WHERE idAlumno = ?";
