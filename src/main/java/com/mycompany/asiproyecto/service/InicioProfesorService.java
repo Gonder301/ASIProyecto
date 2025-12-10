@@ -3,6 +3,10 @@ package com.mycompany.asiproyecto.service;
 import com.mycompany.asiproyecto.dao.AlumnoContratoDAO;
 import com.mycompany.asiproyecto.model.AlumnoContrato;
 import com.mycompany.asiproyecto.view.InicioProfesor;
+import com.mycompany.asiproyecto.view.RevisarContratoJDialog;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 public class InicioProfesorService {
@@ -15,11 +19,11 @@ public class InicioProfesorService {
     }
 
     public static void actualizarPanelContratos(List<AlumnoContrato> contratosParaMostrar, InicioProfesor vista) {
-                javax.swing.JPanel container = new javax.swing.JPanel();
+        javax.swing.JPanel container = new javax.swing.JPanel();
         container.setLayout(new javax.swing.BoxLayout(container, javax.swing.BoxLayout.Y_AXIS));
         container.setBackground(new java.awt.Color(240, 240, 240));
 
-        if (contratosParaMostrar != null) {
+        if (!contratosParaMostrar.isEmpty()) {
             for (AlumnoContrato c : contratosParaMostrar) {
                 javax.swing.JPanel itemPanel = new javax.swing.JPanel(new java.awt.BorderLayout(10, 10));
                 // Dimensiones
@@ -61,6 +65,13 @@ public class InicioProfesorService {
                     btn.setText("VER");
                 }
 
+                btn.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        abrirRevisarContratoJDialog(vista, c);
+                    }
+                });
+
                 itemPanel.add(infoPanel, java.awt.BorderLayout.CENTER);
                 itemPanel.add(btn, java.awt.BorderLayout.EAST);
 
@@ -74,6 +85,12 @@ public class InicioProfesorService {
         vista.scrollPanelContratos.setViewportView(container);
         vista.scrollPanelContratos.revalidate();
         vista.scrollPanelContratos.repaint();
+    }
+
+    public static void abrirRevisarContratoJDialog(InicioProfesor vista, AlumnoContrato ac) {
+        RevisarContratoJDialog dialog = new RevisarContratoJDialog(ac, vista, true);
+        dialog.setLocationRelativeTo(vista);
+        dialog.setVisible(true);
     }
 
     public static void llenarMiInfo(InicioProfesor vista) {

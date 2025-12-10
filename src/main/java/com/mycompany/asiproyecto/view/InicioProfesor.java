@@ -19,25 +19,27 @@ public class InicioProfesor extends javax.swing.JFrame {
     
     public InicioProfesor() {
         initComponents();
-        ipc = new InicioProfesorController();
-        profesor = new Profesor();
-        profesor.setNombresProfesor("Juan Ruiz");
-        nombreLabel.setText(profesor.getNombresProfesor());
+        this.ipc = new InicioProfesorController();
+        this.profesor = new Profesor();
+        this.profesor.setNombresProfesor("Juan Ruiz");
+        this.todosLosAlumnoContrato = null;
+        this.nombreLabel.setText(this.profesor.getNombresProfesor());
         setLocationRelativeTo(null);
         InicioProfesorService.llenarMiInfo(this);
         InicioProfesorService.cargarContratos(this);
-        InicioProfesorService.actualizarPanelContratos(todosLosAlumnoContrato, this);
+        InicioProfesorService.actualizarPanelContratos(this.todosLosAlumnoContrato, this);
     }
 
     public InicioProfesor(Profesor p) {
         initComponents();
-        ipc = new InicioProfesorController();
-        profesor = p;
-        nombreLabel.setText(profesor.getNombresProfesor());
+        this.ipc = new InicioProfesorController();
+        this.profesor = p;
+        this.todosLosAlumnoContrato = null;
+        this.nombreLabel.setText(this.profesor.getNombresProfesor());
         setLocationRelativeTo(null);
         InicioProfesorService.llenarMiInfo(this);
         InicioProfesorService.cargarContratos(this);
-        InicioProfesorService.actualizarPanelContratos(todosLosAlumnoContrato, this);
+        InicioProfesorService.actualizarPanelContratos(this.todosLosAlumnoContrato, this);
     }
     
     /**

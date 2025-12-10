@@ -15,4 +15,5 @@ public class AlumnoContrato {
     public String documentoContrato;
     public LocalDate fechaInicioContrato;
     public LocalDate fechaFinContrato;
+    public String idDocumento;
 }

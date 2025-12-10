@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AlumnoContratoDAO {
     //Se obtiene una lista que contiene información acerca del alumno y su contrato,
@@ -40,6 +42,15 @@ public class AlumnoContratoDAO {
                     ac.idAlumno = rs.getInt("idalumno");
                     ac.idContrato = rs.getInt("idcontrato");
                     ac.nombreCompletoAlumno = rs.getString("nombresalumno") + ", " + rs.getString("apellidosalumno");
+                    
+                    //Extractor del idDocumento
+                    String regex = "/d/([a-zA-Z0-9_-]+)";
+                    Pattern pattern = Pattern.compile(regex);
+                    Matcher matcher = pattern.matcher(ac.documentoContrato);
+                    if (matcher.find()) {
+                        ac.idDocumento = matcher.group(1);
+                    }
+                    
                     lista.add(ac);
                 }
             }
